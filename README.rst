@@ -3,11 +3,11 @@ Utilitary package for antispoofing countermeasures
 ===============================================================================
 
 This package contains some utility functions to be used in antispoofing countermeasures codes. The goal of this package is to centralize some functions in commom. This package contains:
-- LDA Machine
-- PCA Machine
-- Function to normalize parameters
-- Performance measure functions
-- Eyes localization function
+  - LDA Machine
+  - PCA Machine
+  - Function to normalize parameters
+  - Performance measure functions
+  - Eyes localization function
 
 
 If you use this package and/or its results, please cite the following publications:
