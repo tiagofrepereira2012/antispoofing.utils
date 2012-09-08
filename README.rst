@@ -1,26 +1,18 @@
 ===============================================================================
-LBP-TOP based countermeasure against facial spoofing attacks
+Utilitary package for antispoofing countermeasures
 ===============================================================================
 
-
-This package implements an LBP-TOP based countermeasure to spoofing attacks to face recognition systems as described at the paper LBP-TOP based countermeasure against facial spoofing attacks, International Workshop on Computer Vision With Local Binary Pattern Variants, 2012.
+This package contains some utility functions to be used in antispoofing countermeasures codes. The goal of this package is to centralize some functions in commom. This package contains:
+- LDA Machine
+- PCA Machine
+- Function to normalize parameters
+- Performance measure functions
+- Eyes localization function
 
 
 If you use this package and/or its results, please cite the following publications:
 
-1. The original paper with the counter-measure explained in details::
-
-    @inproceedings{Pereira_LBP_2012,
-      author = {Pereira, Tiago de Freitas and Anjos, Andr{\'{e}} and De Martino, Jos{\'{e}} Mario and Marcel, S{\'{e}}bastien},
-      keywords = {Attack, Countermeasures, Counter-Spoofing, Face Recognition, Liveness Detection, Replay, Spoofing},
-      month = dec,
-      title = {LBP-TOP based countermeasure against facial spoofing attacks},
-      journal = {ACCV 2012},
-      year = {2012},
-    }
-
-
-2. Bob as the core framework used to run the experiments::
+1. Bob as the core framework used to run the experiments::
 
     @inproceedings{Anjos_ACMMM_2012,
       author = {A. Anjos AND L. El Shafey AND R. Wallace AND M. G\"unther AND C. McCool AND S. Marcel},
@@ -32,14 +24,6 @@ If you use this package and/or its results, please cite the following publicatio
     }
 
 
-Raw Data
---------
- 
-The dataset used in the paper is REPLAY-ATTACK database and it is publicly available. It should be downloaded and
-installed **prior** to using the programs described in this package. Visit
-`the REPLAY-ATTACK database page <https://www.idiap.ch/dataset/replayattack>`_ for more information.
-
-
 Installation
 ------------
 
@@ -49,8 +33,8 @@ Installation
   note **the development tip of the package may not be stable** or become
   unstable in a matter of moments.
 
-  Go to `http://pypi.python.org/pypi/antispoofing.lbptop
-  <http://pypi.python.org/pypi/antispoofing.lbptop>`_ to download the latest
+  Go to `http://pypi.python.org/pypi/antispoofing.utils
+  <http://pypi.python.org/pypi/antispoofing.utils>`_ to download the latest
   stable version of this package.
 
 There are 2 options you can follow to get this package installed and
@@ -65,11 +49,11 @@ Using an automatic installer
 
 Using ``pip`` is the easiest (shell commands are marked with a ``$`` signal)::
 
-  $ pip install antispoofing.lbptop
+  $ pip install antispoofing.utils
 
 You can also do the same with ``easy_install``::
 
-  $ easy_install antispoofing.lbptop
+  $ easy_install antispoofing.utils
 
 This will download and install this package plus any other required
 dependencies. It will also verify if the version of Bob you have installed
@@ -83,7 +67,7 @@ Using ``zc.buildout``
 =====================
 
 Download the latest version of this package from `PyPI
-<http://pypi.python.org/pypi/antispoofing.lbptop>`_ and unpack it in your
+<http://pypi.python.org/pypi/antispoofing.utils>`_ and unpack it in your
 working area. The installation of the toolkit itself uses `buildout
 <http://www.buildout.org/>`_. You don't need to understand its inner workings
 to use this package. Here is a recipe to get you started::
@@ -115,174 +99,11 @@ get you a fully operational test and development environment.
     recipe = xbob.buildout:external
     egg-directories=/Users/crazyfox/work/bob/build/lib
 
-User Guide
-----------
 
-It is assumed you have followed the installation instructions for the package
-and got this package installed and the REPLAY-ATTACK database downloaded and
-uncompressed in a directory. You should have all required utilities sitting
-inside a binary directory depending on your installation strategy (utilities
-will be inside the ``bin`` if you used the buildout option). We expect that the
-video files downloaded for the REPLAY-ATTACK database are installed in a
-sub-directory called ``database`` at the root of the package.  You can use a
-link to the location of the database files, if you don't want to have the
-database installed on the root of this package::
-
-  $ ln -s /path/where/you/installed/the/print-attack-database database
-
-If you don't want to create a link, use the ``--input-dir`` flag to specify
-the root directory containing the database files. That would be the directory
-that *contains* the sub-directories ``train``, ``test``, ``devel`` and
-``face-locations``.
-
-
-Calculate the multiresolution and single resolution LBP-TOP features
-====================================================================
-
-The first stage of the process is calculating the feature vectors, which are essentially LBP-TOP histograms (XY, XT and YT directions) for each frame of the video.
-
-The program to be used is `script/calclbptop_multiple_radius.py`.
-
-The resulting histograms will be put in .hdf5 files in the default output directory `./lbp_features`.
-
-.. code-block:: shell
-
-  $ ./bin/calclbptop_multiple_radius.py
-
-
-To gerate LBP-TOP features following the multiresolution strategy in time domain, it is necessary to set different values for Rt. For example, to generate a multiresolution description in time domain for Rt=[1-4] the code is the follows:
-
-.. code-block:: shell
-
-  $ ./bin/calclbptop_multiple_radius.py -rT 1 2 3 4
-
-
-To gerate a single resolution strategy in time domain, it is necessary to set only one value for Rt. For example, to generate a single resolution description in time domain for Rt=1 the code is the follows:
-
-.. code-block:: shell
-
-  $ ./bin/calclbptop_multiple_radius.py -rT 1
-
-
-
-To see all the options for the scripts `calclbptop_multiple_radius.py` just type
-`--help` at the command line.
-
-
-
-Classification using Chi-2 Distance
-====================================================================
-
-The clasification using Chi-2 distance consists of two steps. The first one is creating the histogram model (average LBP-TOP histogram for each plane and it combinations of all the real access videos in the training set). The second step is comparison of the features of development and test videos to the model histogram and writing the results.
-
-The script to use for creating the histogram model is `script/mkhistmodel_lbptop.py`. It expects that the LBP-TOP features of the videos are stored in a folder `./lbp_features`. The model histogram will be written in the default output folder `./res`. You can change this default features by setting the input arguments. To execute this script, just run:
-
-.. code-block:: shell
-
-  $ ./bin/mkhistmodel_lbptop.py
-
-The script for performing Chi-2 histogram comparison is `script/cmphistmodels_lbptop.py`, and it assumes that the model histogram has been already created. It makes use of the utility script `spoof/chi2.py` and `ml/perf.py` for writing the results in a file. The default input directory is `./lbp_features`, while the default input directory for the histogram model as well as default output directory is `./res`. To execute this script, just run: 
-
-.. code-block:: shell
-
-  $ ./bin/cmphistmodel_lbptop.py
-
-The performance results will be calculated for each LBP-TOP planes and the combinations XT+YT and XY+XT+YT.
-
-To see all the options for the scripts `mkhistmodel_lbptop.py` and `cmphistmodels_lbptop.py`, just type `--help` at the command line.
-
-
-
-Classification with Linear Discriminant Analysis (LDA)
-====================================================================
-
-The classification with LDA is performed using the script `script/ldatrain_lbptop.py`. It makes use of the scripts `ml/lda.py`, `ml\pca.py` (if PCA reduction is performed on the data) and `ml\norm.py` (if the data need to be normalized). The default input and output directories are `./lbp_features` and `./res`. To execute the script with the default parameters, call:
-
-.. code-block:: shell
-
-  $ ./bin/ldatrain_lbptop.py
-
-The performance results will be calculated for each LBP-TOP planes and the combinations XT+YT and XY+XT+YT.
-
-To see all the options for this script, just type `--help` at the command line.
-
-
-Classification with Support Vector Machine (SVM)
-====================================================================
-
-The classification with SVM is performed using the script `script/svmtrain_lbptop.py`. It makes use of the scripts `ml\pca.py` (if PCA reduction is performed on the data) and `ml\norm.py` (if the data need to be normalized). The default input and output directories are `./lbp_features` and `./res`. To execute the script with the default parameters, call:
-
-.. code-block:: shell
-
-  $ ./bin/svmtrain_lbptop.py
-
-The performance results will be calculated for each LBP-TOP planes and the combinations XT+YT and XY+XT+YT.
-
-To see all the options for this script, just type `--help` at the command line.
-
-Generating paper results
-====================================================================
-
-The next code blocks are codes to generate the results from lines 4, 5, 6, 7, 8 of Table 1.
-
-- **Line 4:**
-.. code-block:: shell
-
-  #Extracting the LBP-TOP features
-  $ ./bin/calclbptop_multiple_radius.py --directory lbptop_features/ --input-dir database/ -rX 1 -rY 1 -rT 1 2 3 4 5 6 -cXY -cXT -cYT --lbptypeXY riu2 --lbptypeXT riu2 --lbptypeYT riu2
-
-  #Running the SVM machine
-  $ ./bin/svmtrain_lbptop.py  -n --input-dir lbptop_features/ --output-dir res/
-
-
-- **Line 5:**
-.. code-block:: shell
-
-  #Extracting the LBP-TOP features
-  $ ./bin/calclbptop_multiple_radius.py --directory lbptop_features/ --input-dir database/ -rX 1 -rY 1 -rT 1 2 3 4 5 6 -cXY -cXT -cYT -nXT 4 -nYT 4
-
-  #Running the SVM machine
-  $ ./bin/svmtrain_lbptop.py  -n --input-dir lbptop_features/ --output-dir res/
-
-
-- **Line 6:**
-.. code-block:: shell
-
-  #Extracting the LBP-TOP features
-  $ ./bin/calclbptop_multiple_radius.py --directory lbptop_features/ --input-dir database/ -rX 1 -rY 1 -rT 1 2 3 4 -cXY -cXT -cYT
-
-  #Running the SVM machine
-  $ ./bin/svmtrain_lbptop.py  -n --input-dir lbptop_features/ --output-dir res/
-
-
-- **Line 7:**
-.. code-block:: shell
-
-  #Extracting the LBP-TOP features
-  $ ./bin/calclbptop_multiple_radius.py --directory lbptop_features/ --input-dir database/ -rX 1 -rY 1 -rT 1 2 -cXY -cXT -cYT --lbptypeXY regular --lbptypeXT regular --lbptypeYT regular
-
-  #Running the SVM machine
-  $ ./bin/svmtrain_lbptop.py  -n --input-dir lbptop_features/ --output-dir res/
-
-
-- **Line 8:**
-.. code-block:: shell
-
-  #Extracting the LBP-TOP features
-  $ ./bin/calclbptop_multiple_radius.py --directory lbptop_features/ --input-dir database/ -rX 1 -rY 1 -rT 1 2 -cXY -cXT -cYT -nXT 16 -nYT 16
-
-  #Running the SVM machine
-  $ ./bin/svmtrain_lbptop.py  -n --input-dir lbptop_features/ --output-dir res/
-
-
-After that, it's recommended to go out for a long coffee.
 
 Problems
 --------
 
 In case of problems, please contact any of the authors of the paper.
-
-
-
 
 
