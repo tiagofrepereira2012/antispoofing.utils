@@ -19,8 +19,7 @@ def pyplot_axis_fontsize(ax, size):
   for label in ax.yaxis.get_ticklabels():
     label.set_fontsize(size)
 
-def score_distribution_plot(test, devel, train, epochs, bins, eer_thres,
-    mhter_thres):
+def score_distribution_plot(test, devel, train, bins, thres):
   """Plots the score distributions in 3 different subplots"""
 
   import matplotlib.pyplot as mpl
@@ -34,10 +33,8 @@ def score_distribution_plot(test, devel, train, epochs, bins, eer_thres,
   mpl.hist(test[0], label='Real Accesses', color='g', **histoargs)
   mpl.hist(test[1], label='Attacks', color='b', **histoargs)
   xmax, xmin, ymax, ymin = mpl.axis()
-  mpl.vlines(eer_thres, ymin, ymax, color='red', label='EER', 
+  mpl.vlines(thres, ymin, ymax, color='red', label='EER', 
       linestyles='solid', **lineargs)
-  mpl.vlines(mhter_thres, ymin, ymax, color='magenta', 
-      linestyles='dashed', label='Min.HTER', **lineargs)
   mpl.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
        ncol=4, mode="expand", borderaxespad=0.)
   mpl.grid(True, alpha=0.5)
@@ -49,10 +46,8 @@ def score_distribution_plot(test, devel, train, epochs, bins, eer_thres,
   mpl.hist(devel[0], color='g', **histoargs)
   mpl.hist(devel[1], color='b', **histoargs)
   xmax, xmin, ymax, ymin = mpl.axis()
-  mpl.vlines(eer_thres, ymin, ymax, color='red', linestyles='solid',
+  mpl.vlines(thres, ymin, ymax, color='red', linestyles='solid',
       label='EER', **lineargs)
-  mpl.vlines(mhter_thres, ymin, ymax, color='magenta', linestyles='dashed',
-      label='Min.HTER', **lineargs)
   mpl.grid(True, alpha=0.5)
   mpl.ylabel("Development set")
   axis = mpl.gca()
@@ -62,13 +57,11 @@ def score_distribution_plot(test, devel, train, epochs, bins, eer_thres,
   mpl.hist(train[0], color='g', **histoargs)
   mpl.hist(train[1], color='b', **histoargs)
   xmax, xmin, ymax, ymin = mpl.axis()
-  mpl.vlines(eer_thres, ymin, ymax, color='red', linestyles='solid', 
+  mpl.vlines(thres, ymin, ymax, color='red', linestyles='solid', 
       label='EER', **lineargs)
-  mpl.vlines(mhter_thres, ymin, ymax, color='magenta', linestyles='dashed',
-      label='Min.HTER', **lineargs)
   mpl.grid(True, alpha=0.5)
   mpl.ylabel("Training set")
-  mpl.xlabel("Score distribution after training (%d steps)" % epochs) 
+  mpl.xlabel("Score distribution after training") 
   axis = mpl.gca()
   axis.yaxis.set_label_position('right')
   pyplot_axis_fontsize(axis, axis_fontsize)
