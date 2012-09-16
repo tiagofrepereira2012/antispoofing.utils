@@ -24,9 +24,19 @@ def calc_std(c0, c1):
     p1 = int(math.ceil(prop))
   return numpy.std(numpy.vstack(p0*[c0] + p1*[c1]), 0)
   
-def calc_mean_std(c0, c1):
+"""
+@param c0
+@param c1
+@param nonStdZero if the std was zero, convert to one. This will avoid a zero division
+"""
+def calc_mean_std(c0, c1,nonStdZero=False):
   """ Calculates both the mean of the data. The input is in bob.io.Arrayset format"""
-  return calc_mean(c0, c1), calc_std(c0, c1)
+  mi = calc_mean(c0,c1)
+  std = calc_std(c0,c1)
+  if(nonStdZero):
+    std[std==0] = 1
+
+  return mi, std
 
 def calc_mean_std_clip(c0, c1):
   """ Calculates both the mean of the data. The input is in bob.io.Arrayset format"""
