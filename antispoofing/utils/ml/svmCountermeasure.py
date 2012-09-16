@@ -41,7 +41,7 @@ def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0
   #Running the SVM trainer
   svm_trainer = bob.trainer.SVMTrainer()
   svm_trainer.probability = True
-  #svm_trainer.kernel_type = bob.machine.svm_kernel_type.LINEAR
+  svm_trainer.kernel_type = bob.machine.svm_kernel_type.LINEAR
   svmMachine = svm_trainer.train([train_real, train_attack])
 
   return [svmMachine,pcaMachine,mins,maxs]
