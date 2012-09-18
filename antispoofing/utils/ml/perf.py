@@ -19,11 +19,11 @@ def pyplot_axis_fontsize(ax, size):
   for label in ax.yaxis.get_ticklabels():
     label.set_fontsize(size)
 
-def score_distribution_plot(test, devel, train, bins, thres):
+def score_distribution_plot(test, devel, train, bins, thres,scoresRange=(-5,5)):
   """Plots the score distributions in 3 different subplots"""
 
   import matplotlib.pyplot as mpl
-  histoargs = {'bins': bins, 'alpha': 0.8, 'histtype': 'step', 'range': (-5,5)} 
+  histoargs = {'bins': bins, 'alpha': 0.8, 'histtype': 'step', 'range': scoresRange} 
   lineargs = {'alpha': 0.5}
   axis_fontsize = 8
 
