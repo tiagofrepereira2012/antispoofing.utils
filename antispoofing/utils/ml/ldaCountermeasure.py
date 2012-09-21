@@ -24,7 +24,7 @@ def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0
     train_attack = numpy.copy(train_attack)
 
   if normalize:  # zero mean unit variance data normalziation
-    mean, std = calc_mean_std(train_real, train_attack)
+    mean, std = calc_mean_std(train_real, train_attack,nonStdZero=True)
 
   # PCA dimensionality reduction of the data
   if pca_reduction:
