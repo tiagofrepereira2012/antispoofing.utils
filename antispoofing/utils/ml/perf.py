@@ -19,7 +19,7 @@ def pyplot_axis_fontsize(ax, size):
   for label in ax.yaxis.get_ticklabels():
     label.set_fontsize(size)
 
-def score_distribution_plot(test, devel, train, bins, thres,scoresRange=(-5,5)):
+def score_distribution_plot(test, devel, train, bins, thres,scoresRange=(-5,5),title=""):
   """Plots the score distributions in 3 different subplots"""
 
   import matplotlib.pyplot as mpl
@@ -61,9 +61,10 @@ def score_distribution_plot(test, devel, train, bins, thres,scoresRange=(-5,5)):
       label='EER', **lineargs)
   mpl.grid(True, alpha=0.5)
   mpl.ylabel("Training set")
-  mpl.xlabel("Score distribution after training") 
+  mpl.xlabel("Score distribution " + title) 
   axis = mpl.gca()
   axis.yaxis.set_label_position('right')
+
   pyplot_axis_fontsize(axis, axis_fontsize)
 
 
