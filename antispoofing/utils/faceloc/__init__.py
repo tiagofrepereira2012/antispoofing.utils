@@ -9,7 +9,7 @@ import bob
 import numpy
 from .anthropometry import * #classes for determining eye-locations from bb
 
-def expand_detections(detections, nframes, max_age=-1):
+def expand_detections(detections, nframes, max_age=-1, faceSizeFilter=0):
   """Calculates a list of "nframes" with the best possible detections taking
   into consideration the ages of the last valid detectio on the detections
   list.
@@ -33,7 +33,7 @@ def expand_detections(detections, nframes, max_age=-1):
   curr = None
   age = 0
   for k in range(nframes):
-    if detections and detections.has_key(k) and detections[k].is_valid():
+    if detections and detections.has_key(k) and detections[k].is_valid(faceSizeFilter=faceSizeFilter)
       curr = detections[k]
       age = 0
     elif max_age < 0 or age < max_age:
@@ -74,9 +74,19 @@ class BoundingBox:
         (self.x+self.width, self.y + self.height),
         )
 
-  def is_valid(self):
-    """Determines if a certain bounding box is valid"""
-    return bool(self.x + self.width + self.y + self.height)
+  def is_valid(self,faceSizeFilter=0):
+    """
+     Determines if a certain bounding box is valid
+
+     Two conditions for a valid face bounding box
+      - The bounding box is greater than zero
+      - The bounding box is greater than faceSizeFilter
+
+    """
+    if(faceSizeFilter>0):
+      return (faceSize > self.height)
+    else:
+      return bool(self.x + self.width + self.y + self.height)
 
   def __str__(self):
     return "(%d+%d,%d+%d)" % (self.x, self.width, self.y, self.height)
@@ -132,3 +142,17 @@ def read_face(filename):
     retval[int(s[0])] = BoundingBox(s[1], s[2], s[3], s[4])
 
   return retval
+
+
+def preprocess_detections(filename,nframes,facesize_filter=0,max_age=-1):
+"""
+ Reads a single face with the Key Lemon face locations....
+
+"""
+  locations = read_face(filename,facesize_filter=facesize_filter)
+  locations = expand_detections(locations, input.number_of_frames,faceSizeFilter=facesize_filter))
+
+  return locations
+
+
+
