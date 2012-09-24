@@ -151,7 +151,5 @@ def preprocess_detections(filename,nframes,facesize_filter=0,max_age=-1):
 """
   locations = read_face(filename,facesize_filter=facesize_filter)
   locations = expand_detections(locations, input.number_of_frames,faceSizeFilter=facesize_filter))
+
   return locations
-
-
-
