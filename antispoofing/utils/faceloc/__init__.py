@@ -33,7 +33,7 @@ def expand_detections(detections, nframes, max_age=-1, faceSizeFilter=0):
   curr = None
   age = 0
   for k in range(nframes):
-    if detections and detections.has_key(k) and detections[k].is_valid(faceSizeFilter=faceSizeFilter)
+    if detections and detections.has_key(k) and detections[k].is_valid(faceSizeFilter=faceSizeFilter):
       curr = detections[k]
       age = 0
     elif max_age < 0 or age < max_age:
@@ -84,7 +84,7 @@ class BoundingBox:
 
     """
     if(faceSizeFilter>0):
-      return (faceSize > self.height)
+      return (faceSizeFilter > self.height)
     else:
       return bool(self.x + self.width + self.y + self.height)
 
@@ -144,12 +144,16 @@ def read_face(filename):
   return retval
 
 
-def preprocess_detections(filename,nframes,facesize_filter=0,max_age=-1):
-"""
- Reads a single face with the Key Lemon face locations....
+def preprocess_detections(filename,nFrames,facesize_filter=0,max_age=-1):
+  """
+   Reads a single face with the Key Lemon face locations
 
-"""
-  locations = read_face(filename,facesize_filter=facesize_filter)
-  locations = expand_detections(locations, input.number_of_frames,faceSizeFilter=facesize_filter))
+   @param filename The file name with the face annotations
+   @param nframes An integer indicating how many frames has the video that will be analyzed.
+   @param max_age An integer indicating for a how many frames a detected face is valid if no detection occurs after such frame. A value of -1 == forever
+
+  """
+  locations = read_face(filename)
+  locations = expand_detections(locations,nFrames,faceSizeFilter=facesize_filter,max_age=max_age)
 
   return locations
