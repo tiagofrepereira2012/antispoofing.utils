@@ -150,6 +150,7 @@ def preprocess_detections(filename,nFrames,facesize_filter=0,max_age=-1):
 
    @param filename The file name with the face annotations
    @param nframes An integer indicating how many frames has the video that will be analyzed.
+   @param facesize_filter The minimum requirement of face height
    @param max_age An integer indicating for a how many frames a detected face is valid if no detection occurs after such frame. A value of -1 == forever
 
    @returns A dictionary containing the frames in which detection occurred and with keys
