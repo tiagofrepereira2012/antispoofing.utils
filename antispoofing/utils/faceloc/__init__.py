@@ -7,7 +7,6 @@
 
 import bob
 import numpy
-from .anthropometry import * #classes for determining eye-locations from bb
 
 def expand_detections(detections, nframes, max_age=-1, faceSizeFilter=0):
   """Calculates a list of "nframes" with the best possible detections taking
