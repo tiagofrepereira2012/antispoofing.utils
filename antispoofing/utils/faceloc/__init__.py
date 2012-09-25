@@ -145,11 +145,15 @@ def read_face(filename):
 
 def preprocess_detections(filename,nFrames,facesize_filter=0,max_age=-1):
   """
-   Reads a single face with the Key Lemon face locations
+   Reads a single face with the Key Lemon face locations  getting the best possible detections taking
+  into consideration the ages of the last valid detection
 
    @param filename The file name with the face annotations
    @param nframes An integer indicating how many frames has the video that will be analyzed.
    @param max_age An integer indicating for a how many frames a detected face is valid if no detection occurs after such frame. A value of -1 == forever
+
+   @returns A dictionary containing the frames in which detection occurred and with keys
+  corresponding to BoundingBox objects.
 
   """
   locations = read_face(filename)
