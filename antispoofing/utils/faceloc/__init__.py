@@ -7,7 +7,7 @@
 
 import bob
 import numpy
-from .BoundingBox import 
+from .BoundingBox import * 
 
 def expand_detections(detections, nframes, max_age=-1, faceSizeFilter=0):
   """Calculates a list of "nframes" with the best possible detections taking
