@@ -84,7 +84,7 @@ class BoundingBox:
 
     """
     if(faceSizeFilter>0):
-      return (faceSizeFilter > self.height)
+      return (self.height > faceSizeFilter)
     else:
       return bool(self.x + self.width + self.y + self.height)
 
