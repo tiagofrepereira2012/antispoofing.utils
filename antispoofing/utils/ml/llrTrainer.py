@@ -9,6 +9,9 @@ import numpy
 from . import *
 
 """
+PLEASE DO NOT USE THIS FILE BECAUSE IS NOT WORKING
+
+
 Implement the logistic regression to a set of data
 """
 
