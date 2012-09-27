@@ -33,14 +33,25 @@ class ScoreReader:
     @param onlyValidScores Will return only the valid scores
     """
 
-    allScores = numpy.array([])
+    #Findng the number of elements
+    totalScores = 0
+    for f in self.files:
+      fileName = str(f.make_path(self.inputDir,extension='.hdf5'))
+      scores = bob.io.load(fileName)
+      totalScores =totalScores + scores.shape[1]
 
+    #allScores = numpy.zeros(shape=(1,totalScores))
+    allScores = numpy.zeros(shape=(totalScores))
+    offset = 0
     for f in self.files:
       fileName = str(f.make_path(self.inputDir,extension='.hdf5'))
 
       scores = bob.io.load(fileName)
 
-      allScores=numpy.concatenate((allScores,scores))
+      #allScores=numpy.concatenate((allScores,scores),axis=1)
+      #allScores[0,offset:offset+scores.shape[1]] = scores
+      allScores[offset:offset+scores.shape[1]] = numpy.reshape(scores,(scores.shape[1]))
+      offset = offset + scores.shape[1]
 
 
     if(onlyValidScores):
