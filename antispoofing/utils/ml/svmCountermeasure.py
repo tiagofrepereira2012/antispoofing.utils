@@ -33,8 +33,6 @@ def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0
 
   # PCA dimensionality reduction of the data
   if pca_reduction:
-    #train = bob.io.Arrayset() # preparing the train data for PCA (putting them altogether into bob.io.Arrayset)
-    #train.extend(train_real); train.extend(train_attack)
     train = [train_real,train_attack]
     pcaMachine = pca.make_pca(train, energy, False) # performing PCA
     train_real = pcareduce(pcaMachine, train_real); train_attack = pcareduce(pcaMachine, train_attack)
