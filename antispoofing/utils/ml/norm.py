@@ -51,6 +51,14 @@ def calc_bounds(c0, c1):
   sub = (div + mn)
   return (sub, div)
 
+def zeromean_unitvar_norm(data, mean, std):
+  """ Normalized the data with zero mean and unit variance. The data is in bob.io.Arrayset format. Mean and variance are in numpy.ndarray format"""
+  return numpy.divide(data-mean,std)
+
+def zeromean_unitvar_norm_clip(data, mean, std):
+  """ Normalized the data with zero mean and unit variance. The data is in bob.io.Arrayset format. Mean and variance are in numpy.ndarray format"""
+  return numpy.divide(numpy.clip(data, 0., 300.)-mean,std)
+
 
 def calc_min_max(data):
   """Calculation of the minimum and maximum of each feature in a dataset"""
