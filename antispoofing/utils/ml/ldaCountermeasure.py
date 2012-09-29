@@ -28,8 +28,6 @@ def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0
 
   # PCA dimensionality reduction of the data
   if pca_reduction:
-    #train = bob.io.Arrayset() # preparing the train data for PCA (putting them altogether into bob.io.Arrayset)
-    #train.extend(train_real); train.extend(train_attack)
     dataPCA = numpy.concatenate((train_real,train_attack),axis=0)
 
     pcaMachine = pca.make_pca(dataPCA, energy, False) # performing PCA

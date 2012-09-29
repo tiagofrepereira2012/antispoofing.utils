@@ -13,7 +13,7 @@ def make_pca(data, perc, norm=False):
   Keyword parameters:
 
   data
-    numpy.ndarray or bob.io.Arrayset containing the training data which will be used to calculate the PCA parameters
+    numpy.ndarray containing the training data which will be used to calculate the PCA parameters
 
   perc
     the percentage of energy which should be conserved when reducing the dimensions
@@ -45,7 +45,7 @@ def make_pca(data, perc, norm=False):
 
 
 def pcareduce(machine, data):
-  """ Reduces the dimension of the data, using the given bob.machine.LinearMachine (projects each of the data feature vector in the lower dimensional space). Returns numpy.ndarray of the feature vectors with reduced dimensionality. The accepted input data can be in numpy.ndarray format or bob.io.Arrayset format.
+  """ Reduces the dimension of the data, using the given bob.machine.LinearMachine (projects each of the data feature vector in the lower dimensional space). Returns numpy.ndarray of the feature vectors with reduced dimensionality. The accepted input data can be in numpy.ndarray format format.
 
   Keyword parameters:
 
