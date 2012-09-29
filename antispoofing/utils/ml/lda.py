@@ -9,42 +9,41 @@
 import bob
 import numpy
 
-def make_lda(train, verbose=False):
+def make_lda(train):
   """Creates a new linear machine and train it using LDA.
 
   Keyword Parameters:
 
-  train
-    An iterable (tuple or list) containing two arraysets: the first contains
+  @param train An iterable (list) containing two ndarray: the first contains
     the real accesses and the second contains the attacks.
 
-  verbose
-    Makes the training more verbose
+  @returns Return the machine
+
   """
 
   # checking the type of the data provided for reduction
-  if type(train[0]) == numpy.ndarray:
+  #if type(train[0]) == numpy.ndarray:
     # putting the numpy.ndarray data into Arrayset
-    t0 = bob.io.Arrayset()
-    t1 = bob.io.Arrayset()
-    t0.extend(train[0])
-    t1.extend(train[1])
-    train_array = (t0, t1)
-  else:
-    train_array = train
+    #t0 = bob.io.Arrayset()
+    #t1 = bob.io.Arrayset()
+    #t0.extend(train[0])
+    #t1.extend(train[1])
+    #train_array = (t0, t1)
+  #else:
+    #train_array = train
 
   T = bob.trainer.FisherLDATrainer()
-  machine, eig_vals = T.train(train_array)
+  machine, eig_vals = T.train(train)
   return machine
 
 def get_scores(machine, data):
   """Gets the scores for the data"""
 
   # checking the type of the data provided for reduction
-  if type(data) == numpy.ndarray:
+  #if type(data) == numpy.ndarray:
     # putting the numpy.ndarray data into Arrayset
-    dataarray = bob.io.Arrayset()
-    dataarray.extend(data)
-    return numpy.vstack(dataarray.foreach(machine))[:,0]  #the new vectors with reduced dimensionality
+    #dataarray = bob.io.Arrayset()
+    #dataarray.extend(data)
+    #return numpy.vstack(dataarray.foreach(machine))[:,0]  #the new vectors with reduced dimensionality
 
   return numpy.vstack(data.foreach(machine))[:,0]

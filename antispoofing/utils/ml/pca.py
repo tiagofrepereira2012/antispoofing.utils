@@ -23,14 +23,14 @@ def make_pca(data, perc, norm=False):
 """
 
   # checking the type of the data provided for reduction
-  if type(data) == numpy.ndarray:
+  #if type(data) == numpy.ndarray:
     # putting the numpy.ndarray data into Arrayset
-    dataarray = bob.io.Arrayset()
-    dataarray.extend(data)
-  else: dataarray = data
+    #dataarray = bob.io.Arrayset()
+    #dataarray.extend(data)
+  #else: dataarray = data
 
   T = bob.trainer.SVDPCATrainer(zscore_convert=norm) # zero-mean, unit-variance will be performed prior to reduction
-  params = T.train(dataarray) # params contain a tuple (eigenvecetors, eigenvalues) sorted in descending order
+  params = T.train(data) # params contain a tuple (eigenvecetors, eigenvalues) sorted in descending order
 
   eigvalues = params[1]
   
@@ -66,11 +66,11 @@ def pcareduce(machine, data):
   """
   
   # checking the type of the data provided for reduction
-  if type(data) == numpy.ndarray:
+  #if type(data) == numpy.ndarray:
     # putting the numpy.ndarray data into Arrayset
-    dataarray = bob.io.Arrayset()
-    dataarray.extend(data)
-    return numpy.vstack(dataarray.foreach(machine))  #the new vectors with reduced dimensionality
+    #dataarray = bob.io.Arrayset()
+    #dataarray.extend(data)
+    #return numpy.vstack(dataarray.foreach(machine))  #the new vectors with reduced dimensionality
  
   # if the data is bob.io.Arrayset
   return numpy.vstack(data.foreach(machine))   #the new vectors with reduced dimensionality
