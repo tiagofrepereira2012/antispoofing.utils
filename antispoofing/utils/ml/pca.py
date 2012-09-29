@@ -22,14 +22,7 @@ def make_pca(data, perc, norm=False):
     if set to True, unit-variance normalization will be done to the data prior to reduction (zero mean is done by default anyway)
 """
 
-  # checking the type of the data provided for reduction
-  #if type(data) == numpy.ndarray:
-    # putting the numpy.ndarray data into Arrayset
-    #dataarray = bob.io.Arrayset()
-    #dataarray.extend(data)
-  #else: dataarray = data
-
-  T = bob.trainer.SVDPCATrainer(zscore_convert=norm) # zero-mean, unit-variance will be performed prior to reduction
+  T = bob.trainer.SVDPCATrainer()
   params = T.train(data) # params contain a tuple (eigenvecetors, eigenvalues) sorted in descending order
 
   eigvalues = params[1]
@@ -59,18 +52,8 @@ def pcareduce(machine, data):
   machine
     bob.machine.LinearMachine
   data
-    numpy.ndarray or bob.io.Arrayset() containing the data which need to be reduced
-
-  perc
-    the percentage of energy which should be conserved when reducing the dimensions
+    numpy.ndarray 
   """
-  
-  # checking the type of the data provided for reduction
-  #if type(data) == numpy.ndarray:
-    # putting the numpy.ndarray data into Arrayset
-    #dataarray = bob.io.Arrayset()
-    #dataarray.extend(data)
-    #return numpy.vstack(dataarray.foreach(machine))  #the new vectors with reduced dimensionality
- 
-  # if the data is bob.io.Arrayset
-  return numpy.vstack(data.foreach(machine))   #the new vectors with reduced dimensionality
+
+  return machine(data)
+

@@ -32,9 +32,6 @@ def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0
     #train.extend(train_real); train.extend(train_attack)
     dataPCA = numpy.concatenate((train_real,train_attack),axis=0)
 
-    print(dataPCA)
-    print(dataPCA.shape)
-
     pcaMachine = pca.make_pca(dataPCA, energy, False) # performing PCA
 
     #Storing the normaliation factors in PCA machine
