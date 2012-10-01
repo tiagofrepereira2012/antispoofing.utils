@@ -17,11 +17,11 @@ class ScoreNormalization:
     " @param scores set of scores to help in the normaliztion
     """
     
-    self.mins = min(scores)
-    self.maxs = max(scores)
+    self.mins = numpy.min(scores,axis=0)
+    self.maxs = numpy.max(scores,axis=0)
     
-    self.avg =  numpy.average(scores)
-    self.std  = numpy.std(scores)
+    self.avg =  numpy.average(scores,axis=0)
+    self.std  = numpy.std(scores,axis=0)
 
     self.totalScores = len(scores)
 
@@ -46,9 +46,6 @@ class ScoreNormalization:
     @return numpy.array with the normalized scores
     """
 
-    if(std==0):
-      std = 0.000001
-
     return numpy.divide((scores - self.avg),self.std)
 
 
@@ -60,12 +57,11 @@ class ScoreNormalization:
     @param lowBound The lower bound
     @param upperBound The upper bound
 
-    @return numpy.array with the normalized scores. Will return a array([]) if maxs - mins = 0
+    @return numpy.array with the normalized scores.
     """
 
     denom = self.maxs - self.mins
-    if denom == 0:
-      return numpy.array([])
-   
-    return (upperBound - lowerBound) * (scores - self.mins) / (self.maxs - self.mins) + lowerBound
+    normalizedScores = (upperBound - lowerBound) * (scores - self.mins) / (self.maxs - self.mins) + lowerBound
+
+    return normalizedScores
 
