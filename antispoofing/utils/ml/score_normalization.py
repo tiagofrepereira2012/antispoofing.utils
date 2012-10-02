@@ -61,7 +61,7 @@ class ScoreNormalization:
     """
 
     denom = self.maxs - self.mins
-    normalizedScores = (upperBound - lowerBound) * (scores - self.mins) / (self.maxs - self.mins) + lowerBound
+    normalizedScores = (upperBound - lowerBound) * (scores - self.mins) / denom + lowerBound
 
     return normalizedScores
 
