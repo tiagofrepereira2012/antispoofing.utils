@@ -4,7 +4,6 @@
 # Tue 01 Oct 2012 16:48:44 CEST 
 
 import abc
-from . import *
 
 import xbob.db.replay
 import xbob.db.casia_fasd
@@ -14,7 +13,7 @@ from antispoofing.utils.database import *
 
 class DatabaseFactory:
   """
-  Factory of objects Database
+  Factory of Database objects
   """
 
   @staticmethod
