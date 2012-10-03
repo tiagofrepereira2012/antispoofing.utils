@@ -29,14 +29,13 @@ setup(
       'antispoofing',
       ],
 
-    #entry_points={
-      #'console_scripts': [
-        #'mkhistmodel_lbptop.py = antispoofing.lbptop.script.mkhistmodel_lbptop:main',
-        #'cmphistmodels_lbptop.py = antispoofing.lbptop.script.cmphistmodels_lbptop:main',
-        #'ldatrain_lbptop.py = antispoofing.lbptop.script.ldatrain_lbptop:main',
-        #'svmtrain_lbptop.py = antispoofing.lbptop.script.svmtrain_lbptop:main',
-        #'calclbptop_multiple_radius.py = antispoofing.lbptop.script.calclbptop_multiple_radius:main',
-        #],
-      #},
+
+    entry_points = {
+      # Database declaration
+      'antispoofing.utils.db': [
+        'Replay = antispoofing.utils.db:Replay',
+        'CasiaFASD = antispoofing.utils.db:CasiaFASD',
+        ],
+      },
 
 )
