@@ -15,15 +15,18 @@ from antispoofing.utils.db.files import *
 
 class Replay(Database):
 
-  def __init__ (self,args):
+  def __init__ (self,args=None):
 
     self.__db = xbob.db.replay.Database()
 
-    self.__kwargs = {
-      'protocol': args.replayProtocol,
-      'support':  args.replaySupport,
-      'light': args.replayLight,
-    }
+    self.__kwargs = {}
+
+    if(type(args)!=type(None)):
+      self.__kwargs = {
+        'protocol': args.replayProtocol,
+        'support':  args.replaySupport,
+        'light': args.replayLight,
+       }
 
 
   @staticmethod

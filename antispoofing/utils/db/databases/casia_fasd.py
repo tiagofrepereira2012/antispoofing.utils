@@ -18,10 +18,13 @@ class CasiaFASD(Database):
   def __init__ (self,args):
     self.__db = xbob.db.casia_fasd.Database()
 
-    self.__kwargs = {
-      'types': args.casiaTypes,
-      'fold_no': 1,
-    }
+    self.__kwargs = {}
+
+    if(type(args)!=type(None)):
+      self.__kwargs = {
+        'types': args.casiaTypes,
+        'fold_no': 1,
+      }
 
 
   @staticmethod

@@ -15,7 +15,7 @@ class Database:
 
   __metaclass__ = abc.ABCMeta
 
-  def __init__ (self,args):
+  def __init__ (self,args=None):
     return
 
   @staticmethod

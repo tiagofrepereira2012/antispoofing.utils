@@ -17,7 +17,7 @@ class DatabaseFactory:
   """
 
   @staticmethod
-  def createDatabase(databaseName,args):
+  def create_database(databaseName,args=None):
 
     #Searching the objects
     for d in antispoofing.utils.db.databases.Database.__subclasses__():
@@ -25,6 +25,18 @@ class DatabaseFactory:
         return d(args)
 
     raise DatabaseFactoryException("Database " + databaseName + " not registered.")
+
+  @staticmethod
+  def get_registered_database():
+    """
+    Will return the name of the registered databases
+    """
+    names = []
+    for d in antispoofing.utils.db.databases.Database.__subclasses__():
+      names.append(d.name())
+
+    return names
+
 
 
 class DatabaseFactoryException(Exception):
