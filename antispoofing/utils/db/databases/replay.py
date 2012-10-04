@@ -100,7 +100,6 @@ class Replay(Database):
     return testReal,testAttack
 
 
-  @abc.abstractmethod
   def get_all_data(self):
     """
     Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for ALL group sets
