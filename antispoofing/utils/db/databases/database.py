@@ -27,25 +27,34 @@ class Database:
     return
 
   @abc.abstractmethod
-  def get_train_data(self,**kwargs):
+  def get_train_data(self):
     """
-    Will return the real access and the attack File objects (xbob.db.<database>.File) for training the antispoofing classifier
-    """
-    return
-
-  @abc.abstractmethod
-  def get_devel_data(self,**kwargs):
-    """
-    Will return the real access and the attack File objects (xbob.db.<database>.File) for development (supposed to tune the antispoofing classifier)
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for training the antispoofing classifier
     """
     return
 
   @abc.abstractmethod
-  def get_test_data(self,**kwargs):
+  def get_devel_data(self):
     """
-    Will return the real access and the attack File objects (xbob.db.<database>.File) for test (supposed to report the results)
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for development (supposed to tune the antispoofing classifier)
     """
     return
+
+  @abc.abstractmethod
+  def get_test_data(self):
+    """
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for test (supposed to report the results)
+    """
+    return
+
+
+  @abc.abstractmethod
+  def get_all_data(self):
+    """
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for ALL group sets
+    """
+    return
+
 
 
   @staticmethod

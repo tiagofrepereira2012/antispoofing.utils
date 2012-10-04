@@ -50,7 +50,7 @@ class CasiaFASD(Database):
 
   def get_train_data(self):
     """
-    Will return the real access and the attack File objects (xbob.db.<database>.File) for training the antispoofing classifier
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for training the antispoofing classifier
     """
     types, fold_no = self.__parseArguments()
 
@@ -65,7 +65,7 @@ class CasiaFASD(Database):
 
   def get_devel_data(self):
     """
-    Will return the real access and the attack File objects (xbob.db.<database>.File) for development (supposed to tune the antispoofing classifier)
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for development (supposed to tune the antispoofing classifier)
     """
     types, fold_no = self.__parseArguments()
 
@@ -80,7 +80,7 @@ class CasiaFASD(Database):
 
   def get_test_data(self):
     """
-    Will return the real access and the attack File objects (xbob.db.<database>.File) for test (supposed to report the results)
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for test (supposed to report the results)
     """
     types,_ = self.__parseArguments()
 
@@ -91,6 +91,20 @@ class CasiaFASD(Database):
     testAttack   = [CasiaFASDFile(f) for f in testAttack]
 
     return testReal,testAttack
+
+
+  @abc.abstractmethod
+  def get_all_data(self):
+    """
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for ALL group sets
+    """
+    allReal   = self.__db.objects(cls='real',**self.__kwargs)
+    allReal   = [CasiaFASDFile(f) for f in allReal]
+
+    allAttacks  = self.__db.objects(cls='attack',**self.__kwargs)
+    allAttacks  = [CasiaFASDFile(f) for f in allAttacks]
+
+    return allReal,allAttacks
 
 
   def __parseArguments(self):

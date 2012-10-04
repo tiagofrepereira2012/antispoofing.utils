@@ -61,7 +61,7 @@ class Replay(Database):
 
   def get_train_data(self):
     """
-    Will return the real access and the attack File objects (xbob.db.<database>.File) for training the antispoofing classifier
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for training the antispoofing classifier
     """
 
     trainReal   = self.__db.objects(groups='train', cls='real',**self.__kwargs)
@@ -75,7 +75,7 @@ class Replay(Database):
 
   def get_devel_data(self):
     """
-    Will return the real access and the attack File objects (xbob.db.<database>.File) for development (supposed to tune the antispoofing classifier)
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for development (supposed to tune the antispoofing classifier)
     """
     develReal   = self.__db.objects(groups='devel', cls='real',**self.__kwargs)
     develReal   = [ReplayFile(f) for f in develReal]
@@ -88,7 +88,7 @@ class Replay(Database):
 
   def get_test_data(self):
     """
-    Will return the real access and the attack File objects (xbob.db.<database>.File) for test (supposed to report the results)
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for test (supposed to report the results)
     """
 
     testReal    = self.__db.objects(groups='test', cls='real',**self.__kwargs)
@@ -98,3 +98,18 @@ class Replay(Database):
     testAttack   = [ReplayFile(f) for f in testAttack]
 
     return testReal,testAttack
+
+
+  @abc.abstractmethod
+  def get_all_data(self):
+    """
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for ALL group sets
+    """
+    allReal   = self.__db.objects(cls='real',**self.__kwargs)
+    allReal   = [ReplayFile(f) for f in allReal]
+
+    allAttacks  = self.__db.objects(cls='attack',**self.__kwargs)
+    allAttacks  = [ReplayFile(f) for f in allAttacks]
+
+    return allReal,allAttacks
+
