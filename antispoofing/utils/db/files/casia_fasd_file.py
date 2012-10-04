@@ -91,7 +91,7 @@ class CasiaFASDFile(File):
                                 output and the codec for saving the input blob.
     """
     
-    return self.__xbobFile.save(directory=directory, extension=extension)
+    return self.__xbobFile.save(data, directory=directory, extension=extension)
 
 
   def make_path(self, directory=None, extension=None):
