@@ -33,8 +33,8 @@ setup(
     entry_points = {
       # Database declaration
       'antispoofing.utils.db': [
-        'Replay = antispoofing.utils.db:Replay',
-        'CasiaFASD = antispoofing.utils.db:CasiaFASD',
+        'Replay    = antispoofing.utils.db.databases.replay:Replay',
+        'CasiaFASD = antispoofing.utils.db.databases.casia_fasd:CasiaFASD',
         ],
       },
 

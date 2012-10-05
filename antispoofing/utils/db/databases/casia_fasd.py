@@ -4,18 +4,17 @@
 # Tue 01 Oct 2012 16:48:44 CEST 
 
 """
-Abstract class that define some method for the antispoofing databases
+CASIA FASD database layer
 """
-import abc
 import bob
 import xbob.db.casia_fasd
 
-from antispoofing.utils.db.databases import *
+from .. import *
 from antispoofing.utils.db.files import *
 
 class CasiaFASD(Database):
 
-  def __init__ (self,args):
+  def __init__ (self,args=None):
     self.__db = xbob.db.casia_fasd.Database()
 
     self.__kwargs = {}
@@ -25,14 +24,6 @@ class CasiaFASD(Database):
         'types': args.casiaTypes,
         'fold_no': 1,
       }
-
-
-  @staticmethod
-  def name():
-    """
-    Defines the name of the object
-    """
-    return "casia_fasd"
 
 
   @staticmethod

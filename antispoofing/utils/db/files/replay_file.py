@@ -6,7 +6,7 @@
 import bob
 import xbob.db.replay
 
-from antispoofing.utils.db.files import *
+from antispoofing.utils.db import *
 
 class ReplayFile(File):
   """
@@ -14,7 +14,6 @@ class ReplayFile(File):
   """
 
   def __init__(self,xbobFile):
-
     self.__xbobFile = xbobFile
 
 

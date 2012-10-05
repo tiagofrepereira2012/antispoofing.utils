@@ -6,7 +6,7 @@
 import bob
 import xbob.db.casia_fasd
 
-from antispoofing.utils.db.files import *
+from antispoofing.utils.db import *
 
 class CasiaFASDFile(File):
   """

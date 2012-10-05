@@ -4,13 +4,12 @@
 # Tue 01 Oct 2012 16:48:44 CEST 
 
 """
-Abstract class that define some method for the antispoofing databases
+Replay attack database layer
 """
-import abc
 import bob
 import xbob.db.replay
 
-from antispoofing.utils.db.databases import *
+from .. import *
 from antispoofing.utils.db.files import *
 
 class Replay(Database):
@@ -27,15 +26,6 @@ class Replay(Database):
         'support':  args.replaySupport,
         'light': args.replayLight,
        }
-
-
-  @staticmethod
-  def name():
-    """
-    Defines the name of the object
-    """
-    return "replay"
-
 
   @staticmethod
   def create_subparser(subparser):
