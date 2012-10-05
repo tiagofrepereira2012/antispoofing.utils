@@ -9,7 +9,7 @@ CASIA FASD database layer
 import bob
 import xbob.db.casia_fasd
 
-from .. import *
+from antispoofing.utils.db import *
 from antispoofing.utils.db.files import *
 
 class CasiaFASD(Database):
@@ -27,14 +27,14 @@ class CasiaFASD(Database):
 
 
   @staticmethod
-  def create_subparser(subparser):
+  def create_subparser(subparser,subparserName):
     """
     Creates a parser for the central manager taking into consideration the options for every module that can provide those
     """
-    parser_casia = subparser.add_parser(CasiaFASD.name(), help='Casia FASD database')
+    parser_casia = subparser.add_parser(subparserName, help='Casia FASD database')
     parser_casia.add_argument('--types', type=str, choices=('warped', 'cut', 'video', ''), default='', dest='casiaTypes', help='Defines the types of attack videos in the database that are going to be used.')
 
-    parser_casia.set_defaults(which=CasiaFASD.name())
+    parser_casia.set_defaults(which=subparserName)
 
     return
 

@@ -9,7 +9,7 @@ Replay attack database layer
 import bob
 import xbob.db.replay
 
-from .. import *
+from antispoofing.utils.db import *
 from antispoofing.utils.db.files import *
 
 class Replay(Database):
@@ -28,7 +28,7 @@ class Replay(Database):
        }
 
   @staticmethod
-  def create_subparser(subparser):
+  def create_subparser(subparser,subparserName):
     """
     Creates a parser for the central manager taking into consideration the options for every module that can provide those
     """
@@ -36,7 +36,7 @@ class Replay(Database):
     protocols = [p.name for p in protocols]
 
 
-    parser_replay = subparser.add_parser(Replay.name(), help='Replay attack database')
+    parser_replay = subparser.add_parser(subparserName, help='Replay attack database')
     parser_replay.add_argument('--protocol', type=str, dest="replayProtocol", default='grandtest', help='The REPLAY-ATTACK protocol type may be specified   instead of the id switch to subselect a smaller number of files to operate on', choices=protocols)
 
     parser_replay.add_argument('--support', type=str, choices=('fixed', 'hand'), default='', dest='replaySupport', help='One of the valid supported attacks (fixed, hand) (defaults to "%(default)s")')
@@ -44,7 +44,7 @@ class Replay(Database):
     parser_replay.add_argument('--light', type=str, choices=('controlled', 'adverse'), default='', dest='replayLight', help='Types of illumination conditions (controlled,adverse) (defaults to "%(default)s")')
 
   
-    parser_replay.set_defaults(which=Replay.name()) #Help to choose which subparser was selected
+    parser_replay.set_defaults(which=subparserName) #Help to choose which subparser was selected
         
     return
 

@@ -70,11 +70,15 @@ class Database:
     """
     Defines a sub parser for each database
     """
+    import pkg_resources
 
-    subparsers = parser.add_subparsers(help="Database tests available")
+    subparsers = parser.add_subparsers(help="Database tests available") 
 
-    for d in antispoofing.utils.db.databases.Database.__subclasses__():
-      d.create_subparser(subparsers)
+    #For each resource
+    for entrypoint in pkg_resources.iter_entry_points('antispoofing.utils.db'):
+      plugin = entrypoint.load()
+      subparserName = entrypoint.name
+      plugin.create_subparser(subparsers,subparserName)
 
     return
 
