@@ -25,11 +25,12 @@ def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0
 
   if normalize:  # zero mean unit variance data normalziation
     mean, std = calc_mean_std(train_real, train_attack,nonStdZero=True)
+    mean = numpy.double(mean)
+    std = numpy.double(std)
 
   # PCA dimensionality reduction of the data
   if pca_reduction:
     dataPCA = numpy.concatenate((train_real,train_attack),axis=0)
-
     pcaMachine = pca.make_pca(dataPCA, energy, False) # performing PCA
 
     #Storing the normaliation factors in PCA machine
