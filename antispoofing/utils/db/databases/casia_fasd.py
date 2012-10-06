@@ -22,7 +22,7 @@ class CasiaFASD(Database):
     if(type(args)!=type(None)):
       self.__kwargs = {
         'types': args.casiaTypes,
-        'fold_no': 1,
+        'fold_no': args.casiaFoldNo,
       }
 
 
@@ -33,6 +33,8 @@ class CasiaFASD(Database):
     """
     parser_casia = subparser.add_parser(subparserName, help='Casia FASD database')
     parser_casia.add_argument('--types', type=str, choices=('warped', 'cut', 'video', ''), default='', dest='casiaTypes', help='Defines the types of attack videos in the database that are going to be used.')
+    parser_casia.add_argument('--fold_no', type=int, default=1, dest='casiaFoldNo', help='Number of the fold (defaults to "%(default)s").')
+
 
     parser_casia.set_defaults(which=subparserName)
 
