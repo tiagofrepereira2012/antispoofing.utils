@@ -5,6 +5,7 @@
 
 import bob
 import xbob.db.casia_fasd
+import os
 
 from antispoofing.utils.db import *
 
@@ -36,6 +37,7 @@ class CasiaFASDFile(File):
 
     @return Returns a string containing the face file path.
     """
+    directory = obj.facefile(os.path.join(directory,'face-locations'))
     return self.__xbobFile.facefile(directory=directory)
 
 
