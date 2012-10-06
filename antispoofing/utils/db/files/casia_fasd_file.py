@@ -37,7 +37,7 @@ class CasiaFASDFile(File):
 
     @return Returns a string containing the face file path.
     """
-    directory = obj.facefile(os.path.join(directory,'face-locations'))
+    directory = self.__xbobFile.facefile(os.path.join(directory,'face-locations'))
     return self.__xbobFile.facefile(directory=directory)
 
 
