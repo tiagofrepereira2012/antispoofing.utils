@@ -86,13 +86,15 @@ class CasiaFASD(Database):
 
 
   def get_all_data(self):
+    types,_ = self.__parseArguments()
+
     """
     Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for ALL group sets
     """
-    allReal   = self.__db.objects(cls='real',**self.__kwargs)
+    allReal   = self.__db.objects(cls='real')
     allReal   = [CasiaFASDFile(f) for f in allReal]
 
-    allAttacks  = self.__db.objects(cls='attack',**self.__kwargs)
+    allAttacks  = self.__db.objects(cls='attack',types=types)
     allAttacks  = [CasiaFASDFile(f) for f in allAttacks]
 
     return allReal,allAttacks
