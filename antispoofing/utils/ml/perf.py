@@ -69,11 +69,18 @@ def score_distribution_plot(test, devel, train, bins, thres,scoresRange=(-5,5),t
 
 
 def perf_hter(test_scores, devel_scores, threshold_func):
-  """Computes a performance table and returns the HTER for the test and development set, as well as a formatted text with the results and the value of the threshold obtained for the given threshold function
-     Keyword parameters:
-       test_scores - the scores of the samples in the test set
-       devel_scores - the scores of the samples in the development set
-       threshold function - the type of threshold
+  """Computes a performance table and returns the HTER for the test and
+  development set, as well as a formatted text with the results and the value
+  of the threshold obtained for the given threshold function
+
+  Keyword parameters:
+
+    test_scores
+      the scores of the samples in the test set
+    devel_scores
+      the scores of the samples in the development set
+    threshold function
+      the type of threshold
   """ 
    
   from bob.measure import farfrr
@@ -96,4 +103,3 @@ def perf_hter(test_scores, devel_scores, threshold_func):
   devel_text = " d: FAR %.2f%% / FRR %.2f%% / HTER %.2f%% " % (100*devel_far, 100*devel_frr, devel_hter)
   test_text = " t: FAR %.2f%% / FRR %.2f%% / HTER %.2f%% " % (100*test_far, 100*test_frr, test_hter)
   return (test_hter, devel_hter), (test_text, devel_text), thres
-

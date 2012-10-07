@@ -22,9 +22,10 @@ setup(
     include_package_data = True,
 
     install_requires=[
-        "bob >= 1.0",      # base signal proc./machine learning library
-        "xbob.db.replay",     #Replay database
-        "xbob.db.casia_fasd", #CASIA database
+      "setuptools",
+      "bob >= 1.1",
+      "xbob.db.replay",
+      "xbob.db.casia_fasd",
     ],
 
     namespace_packages = [
@@ -35,8 +36,8 @@ setup(
     entry_points = {
       # Database declaration
       'antispoofing.utils.db': [
-        'Replay    = antispoofing.utils.db.databases.replay:Replay',
-        'CasiaFASD = antispoofing.utils.db.databases.casia_fasd:CasiaFASD',
+        'replay     = antispoofing.utils.db.replay:Database',
+        'casia_fasd = antispoofing.utils.db.casia_fasd:Database',
         ],
       },
 

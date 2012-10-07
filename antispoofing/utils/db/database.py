@@ -1,30 +1,143 @@
 #!/usr/bin/env python
 # vim: set fileencoding=utf-8 :
 # Tiago de Freitas Pereira <tiagofrepereira@gmail.com>
+# Andre Anjos <andre.anjos@idiap.ch>
 # Tue 01 Oct 2012 16:48:44 CEST 
 
 import abc
 
-import antispoofing
-from antispoofing.utils.db.databases import *
+class File(object):
+  """Abstract class that define basic properties of File objects"""
 
-class Database:
-  """
-  Abstract class that define some method for the antispoofing databases
+  __metaclass__ = abc.ABCMeta
+
+  @abc.abstractmethod
+  def videofile(self, directory=None):
+    """Returns the path to the database video file for this object
+
+    Keyword Parameters:
+
+    directory 
+      An optional directory name that will be prefixed to the returned result.
+
+    Returns a string containing the video file path.
+    """
+    return
+
+  @abc.abstractmethod
+  def facefile(self, directory=None):
+    """Returns the path to the companion face bounding-box file
+
+    Keyword Parameters:
+
+    directory 
+      An optional directory name that will be prefixed to the returned result.
+
+    Returns a string containing the face file path.
+    """
+    return
+
+  @abc.abstractmethod
+  def bbx(self, directory=None):
+    """Reads the file containing the face locations for the frames in the
+    current video
+
+    Keyword Parameters
+
+    directory 
+      A directory name that will be prepended to the final filepaths where the
+      face bounding boxes are located, if not on the current directory.
+
+    Returns a :py:class:`numpy.ndarray` containing information about the
+    located faces in the videos. Each row of the :py:class:`numpy.ndarray`
+    corresponds for one frame. The five columns of the
+    :py:class:`numpy.ndarray` are (all integers):
+
+      * Frame number (int)
+      * Bounding box top-left X coordinate (int)
+      * Bounding box top-left Y coordinate (int)
+      * Bounding box width (int)
+      * Bounding box height (int)
+
+      Note that **not** all the frames may contain detected faces.
+    """
+    return
+
+  @abc.abstractmethod
+  def load(self, directory=None, extension='.hdf5'):
+    """Loads the data at the specified location and using the given extension.
+
+    Keyword Parameters:
+
+    data 
+      The data blob to be saved (normally a :py:class:`numpy.ndarray`).
+
+    directory 
+      [optional] If not empty or None, this directory is prefixed to the final
+      file destination
+
+    extension 
+      [optional] The extension of the filename - this will control the type of
+      output and the codec for saving the input blob.  
+      
+    """
+    return
+
+  @abc.abstractmethod
+  def save(self, data, directory=None, extension='.hdf5'):
+    """Saves the input data at the specified location and using the given
+    extension.
+
+    Keyword Parameters:
+
+    data 
+      The data blob to be saved (normally a :py:class:`numpy.ndarray`).
+
+    directory 
+      [optional] If not empty or None, this directory is prefixed to the final
+      file destination
+
+    extension 
+      [optional] The extension of the filename - this will control the type of
+      output and the codec for saving the input blob.
+      
+    """
+    return
+
+  @abc.abstractmethod
+  def make_path(self, directory=None, extension=None):
+    """Wraps the current path so that a complete path is formed
+
+    Keyword Parameters:
+
+    directory 
+      An optional directory name that will be prefixed to the returned result.
+
+    extension
+      An optional extension that will be suffixed to the returned filename. The
+      extension normally includes the leading ``.`` character as in ``.jpg`` or
+      ``.hdf5``.
+
+    Returns a string containing the newly generated file path.
+    """
+    return 
+
+class Database(object):
+  """Abstract class that define the basic API for querying antispoofing
+  databases. Queries result in :py:class:`File` objects.
   """
 
   __metaclass__ = abc.ABCMeta
 
-  def __init__ (self,args=None):
+  @abc.abstractmethod
+  def __init__(self, parsed_arguments):
+    """Initializes an instanced of the Database with argparse parsed
+    arguments."""
     return
 
-  @staticmethod
-  @abc.abstractmethod
-  def name():
-    """
-    Defines the name of the object
-    """
-    return
+  #################
+  # File querying #
+  #################
 
   @abc.abstractmethod
   def get_train_data(self):
@@ -55,31 +168,51 @@ class Database:
     """
     return
 
-
-
-  @staticmethod
+  ######################
+  # Management methods #
+  ######################
+  
   @abc.abstractmethod
-  def create_subparser(subparser):
+  def create_subparser(self, subparser, entry_point_name):
     """
-    Creates a subparser for the central manager taking into consideration the options for every module that can provide those
+    Creates a subparser for the central manager taking into consideration the
+    options for every module that can provide those
+
+    Keyword parameters
+
+    subparser
+      The argparse subparser I'll attach to
+
+    entry_point_name
+      My name, given on the setup of this package (or whatever I'm declared as
+      an ``entry_point``).
     """
     return 
+
+  @abc.abstractmethod
+  def short_description(self):
+    """Returns a short (1 line) description about this database"""
+    return
+
+  @abc.abstractmethod
+  def long_description(self):
+    """Returns a longer description about this database"""
+    return
+
+  #################################################
+  # Factory for iterating through known instances #
+  #################################################
 
   @staticmethod
   def create_parser(parser):
     """
     Defines a sub parser for each database
     """
-    import pkg_resources
 
     subparsers = parser.add_subparsers(help="Database tests available") 
 
     #For each resource
+    import pkg_resources
     for entrypoint in pkg_resources.iter_entry_points('antispoofing.utils.db'):
       plugin = entrypoint.load()
-      subparserName = entrypoint.name
-      plugin.create_subparser(subparsers,subparserName)
-
-    return
-
-
+      plugin().create_subparser(subparsers, entrypoint.name)

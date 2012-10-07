@@ -14,7 +14,7 @@ def expand_detections(detections, nframes, max_age=-1, faceSizeFilter=0):
   into consideration the ages of the last valid detectio on the detections
   list.
 
-  Parameters:
+  Keyword Parameters:
 
   detections
     A dictionary containing keys that indicate the frame number of the
@@ -27,6 +27,9 @@ def expand_detections(detections, nframes, max_age=-1, faceSizeFilter=0):
   max_age
     An integer indicating for a how many frames a detected face is valid if
     no detection occurs after such frame. A value of -1 == forever
+  
+  faceSizeFilter
+    The minimum required size of face height (in pixels)
   """
 
   retval = []
@@ -45,21 +48,22 @@ def expand_detections(detections, nframes, max_age=-1, faceSizeFilter=0):
 
   return retval
 
-
 def read_face(filename):
   """Reads a single file containing the face locations.
 
   Parameters:
-  filename -- the name of the text file containing the face locations
 
-  Returns:
-  A dictionary containing the frames in which detection occurred and with keys
-  corresponding to BoundingBox objects.
+  filename
+    the name of the text file containing the face locations
 
-  * Bounding box top-left X coordinate
-  * Bounding box top-left Y coordinate
-  * Bounding box width
-  * Bounding box height
+  Returns: A dictionary containing the frames in which detection occurred and
+  with keys corresponding to BoundingBox objects:
+
+    * Bounding box top-left X coordinate
+    * Bounding box top-left Y coordinate
+    * Bounding box width
+    * Bounding box height
+
   """
 
   f = open(filename, 'rt') #opens the file for reading
@@ -80,21 +84,29 @@ def read_face(filename):
 
   return retval
 
+def preprocess_detections(filename, nFrames, facesize_filter=0, max_age=-1):
+  """Reads a single face with the face locations getting the best possible
+  detections taking into consideration the ages of the last valid detection
 
-def preprocess_detections(filename,nFrames,facesize_filter=0,max_age=-1):
+  Keyword Parameters:
+
+  filename 
+    The file name with the face annotations
+  
+  nFrames 
+    An integer indicating how many frames has the video that will be analyzed.
+
+  facesize_filter
+    The minimum required size of face height (in pixels)
+
+  max_age 
+    An integer indicating for a how many frames a detected face is valid if no
+    detection occurs after such frame. A value of -1 == forever
+
+  Returns dictionary containing the frames in which detection occurred and with
+  keys corresponding to BoundingBox objects.
   """
-   Reads a single face with the face locations  getting the best possible detections taking
-  into consideration the ages of the last valid detection
 
-   @param filename The file name with the face annotations
-   @param nframes An integer indicating how many frames has the video that will be analyzed.
-   @param facesize_filter The minimum requirement of face height
-   @param max_age An integer indicating for a how many frames a detected face is valid if no detection occurs after such frame. A value of -1 == forever
-
-   @returns A dictionary containing the frames in which detection occurred and with keys
-  corresponding to BoundingBox objects.
-
-  """
   locations = read_face(filename)
   locations = expand_detections(locations,nFrames,faceSizeFilter=facesize_filter,max_age=max_age)
 

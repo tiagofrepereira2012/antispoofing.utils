@@ -14,11 +14,11 @@ def make_lda(train):
 
   Keyword Parameters:
 
-  @param train An iterable (list) containing two ndarray: the first contains
-    the real accesses and the second contains the attacks.
+  train
+    An iterable (list) containing two ndarray: the first contains the real
+    accesses and the second contains the attacks.
 
-  @returns Return the machine
-
+  Returns the machine
   """
 
   T = bob.trainer.FisherLDATrainer()
