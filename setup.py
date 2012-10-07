@@ -19,7 +19,7 @@ setup(
 
     # This line is required for any distutils based packaging.
     packages=find_packages(),
-    include_packages_data = True,
+    include_package_data = True,
 
     install_requires=[
         "bob >= 1.0",      # base signal proc./machine learning library
