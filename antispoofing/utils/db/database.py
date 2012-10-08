@@ -198,25 +198,47 @@ class Database(object):
     """Returns a longer description about this database"""
     return
 
+  @abc.abstractmethod
+  def implements_any_of(self, propname):
+    """Tells if this database subtype implements a given property
+    
+    Keyword Parameters
+
+    propname
+      A string or an iterable of strings that define at least one access
+      protocol this dataset must implement (e.g. ``video`` or ``photo``).
+
+    Returns ``True`` if the dataset implements **any** of the access protocols
+    or ``False`` otherwise.
+    """
+    return
+
   #################################################
   # Factory for iterating through known instances #
   #################################################
 
   @staticmethod
-  def create_parser(parser):
-    """Defines a sub parser for each database.
+  def create_parser(parser, implements_any_of=None):
+    """Defines a sub parser for each database, with optional properties.
 
     Keyword Parameters:
 
     parser
       The argparse.ArgumentParser to which I'll attach the subparsers to
+
+    implements_any_of
+      A string or an interable over strings that determine **at least** one
+      property that the given database has to fullfill so that it gets included
+      in the parser. This method will call the instance's `implements()` to
+      find if the instance implements or not the given access protocol.
     """
 
-    subparsers = parser.add_subparsers(help="Database tests available") 
+    subparsers = parser.add_subparsers(help="Available databases")
 
     #For each resource
     import pkg_resources
     for entrypoint in pkg_resources.iter_entry_points('antispoofing.utils.db'):
       plugin = entrypoint.load()
       db = plugin()
-      db.create_subparser(subparsers, entrypoint.name)
+      if db.implements_any_of(implements_any_of):
+        db.create_subparser(subparsers, entrypoint.name)
