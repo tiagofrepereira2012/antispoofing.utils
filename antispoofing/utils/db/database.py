@@ -160,7 +160,6 @@ class Database(object):
     """
     return
 
-
   @abc.abstractmethod
   def get_all_data(self):
     """
@@ -205,8 +204,12 @@ class Database(object):
 
   @staticmethod
   def create_parser(parser):
-    """
-    Defines a sub parser for each database
+    """Defines a sub parser for each database.
+
+    Keyword Parameters:
+
+    parser
+      The argparse.ArgumentParser to which I'll attach the subparsers to
     """
 
     subparsers = parser.add_subparsers(help="Database tests available") 
@@ -215,4 +218,5 @@ class Database(object):
     import pkg_resources
     for entrypoint in pkg_resources.iter_entry_points('antispoofing.utils.db'):
       plugin = entrypoint.load()
-      plugin().create_subparser(subparsers, entrypoint.name)
+      db = plugin()
+      db.create_subparser(subparsers, entrypoint.name)
