@@ -23,22 +23,14 @@ setup(
 
     install_requires=[
       "setuptools",
-      "bob >= 1.1",
-      "xbob.db.replay",
-      "xbob.db.casia_fasd",
+      "bob >= 1.1.0",
     ],
 
     namespace_packages = [
       'antispoofing',
       ],
 
-
     entry_points = {
-      # Database declaration
-      'antispoofing.utils.db': [
-        'replay     = antispoofing.utils.db.replay:Database',
-        'casia_fasd = antispoofing.utils.db.casia_fasd:Database',
-        ],
       },
 
 )
