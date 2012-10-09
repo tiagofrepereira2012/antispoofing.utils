@@ -233,7 +233,8 @@ class Database(object):
       find if the instance implements or not the given access protocol.
     """
 
-    subparsers = parser.add_subparsers(help="Available databases")
+    subparsers = parser.add_subparsers(help="Available databases",
+        title='Databases', description='choose one of the following databases to run this script with:')
 
     #For each resource
     import pkg_resources
