@@ -25,7 +25,7 @@ def main():
 
   parser.add_argument('outputdir', metavar='DIR', type=str, help='Base output directory for every file created by this procedure')
   
-  parser.add_argument('-n', '--average', metavar='INT', type=int, default=11,
+  parser.add_argument('-n', '--average', metavar='INT', type=int,  nargs=2, default=[0,11],
       dest='average', help="Number of scores to merge from every file (defaults to %(default)s)")
 
   parser.add_argument('-v', '--verbose', action='store_true', dest='verbose',
@@ -37,6 +37,9 @@ def main():
   antispoofing.utils.db.Database.create_parser(parser, 'video')
 
   args = parser.parse_args()
+  
+  beginScoresInterval = args.average[0]
+  endScoresInterval   = args.average[1]
 
   if not os.path.exists(args.inputdir):
     parser.error("input directory `%s' does not exist" % args.inputdir)
@@ -70,7 +73,7 @@ def main():
 
       arr = obj.load(args.inputdir, '.hdf5')
       arr = arr[~numpy.isnan(arr)] #remove NaN entries => invalid
-      avg = numpy.mean(arr[:args.average])
+      avg = numpy.mean(arr[beginScoresInterval:endScoresInterval])
 
       # This is a tremendous disencapsulation, but can't do it better for now
       client_id = obj.get_client_id()
@@ -86,7 +89,7 @@ def main():
 
       arr = obj.load(args.inputdir, '.hdf5')
       arr = arr[~numpy.isnan(arr)] #remove NaN entries => invalid
-      avg = numpy.mean(arr[:args.average])
+      avg = numpy.mean(arr[beginScoresInterval:endScoresInterval])
       
       # This is a tremendous disencapsulation, but can't do it better for now
       client_id = obj.get_client_id()
