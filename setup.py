@@ -30,7 +30,10 @@ setup(
       'antispoofing',
       ],
 
-    entry_points = {
+    entry_points={
+      'console_scripts': [
+        'merge_scores.py = antispoofing.utils.script.merge_scores:main',
+        ],
       },
 
     classifiers = [
