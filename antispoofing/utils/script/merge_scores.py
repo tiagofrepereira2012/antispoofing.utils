@@ -99,3 +99,6 @@ def main():
   write_file('train')
   write_file('devel')
   write_file('test')
+
+if __name__ == "__main__":
+  main()
