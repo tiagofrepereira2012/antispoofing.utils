@@ -122,6 +122,13 @@ class File(object):
     """
     return 
 
+
+  @abc.abstractmethod
+  def get_client_id(self):
+    """The client identifier to which this file is bound to"""
+
+
+
 class Database(object):
   """Abstract class that define the basic API for querying antispoofing
   databases. Queries result in :py:class:`File` objects.
