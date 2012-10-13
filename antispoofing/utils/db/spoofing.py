@@ -75,6 +75,7 @@ class DatabaseAll(DatabaseBase):
   get_train_data.__doc__ = DatabaseBase.get_train_data.__doc__
 
   def get_devel_data(self):
+    import pkg_resources
     real_data = []; attack_data = [];
     for entrypoint in pkg_resources.iter_entry_points('antispoofing.utils.db'):
       plugin = entrypoint.load()
@@ -87,6 +88,7 @@ class DatabaseAll(DatabaseBase):
   get_devel_data.__doc__ = DatabaseBase.get_devel_data.__doc__
 
   def get_test_data(self):
+    import pkg_resources
     real_data = []; attack_data = [];
     for entrypoint in pkg_resources.iter_entry_points('antispoofing.utils.db'):
       plugin = entrypoint.load()
@@ -99,6 +101,7 @@ class DatabaseAll(DatabaseBase):
   get_test_data.__doc__ = DatabaseBase.get_test_data.__doc__
 
   def get_all_data(self):
+    import pkg_resources
     real_data = []; attack_data = [];
     for entrypoint in pkg_resources.iter_entry_points('antispoofing.utils.db'):
       plugin = entrypoint.load()
