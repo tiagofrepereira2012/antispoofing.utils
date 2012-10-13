@@ -251,7 +251,7 @@ class Database(object):
       if db.implements_any_of(implements_any_of):
         db.create_subparser(subparsers, entrypoint.name)
 
-    #Add the option to all 
+    #Add the option to all databases
     import antispoofing
     db = antispoofing.utils.db.spoofing.DatabaseAll()
     if db.implements_any_of(implements_any_of):
