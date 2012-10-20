@@ -57,6 +57,10 @@ class ScoreFusion:
     """
     if(self.__scoreNormalizationAlg=="minmax"):
       return self.__scoreNormalization.calculateMinMaxNorm(data)
+    elif(self.__scoreNormalizationAlg=="znorm"):
+      return self.__scoreNormalization.calculateZNorm(data)
+    elif(self.__scoreNormalizationAlg=="none"):
+      return data
     else:
       raise ScoreFusionException("Normalization algorithm " + self.__scoreNormalizationAlg + " invalid.")
 
