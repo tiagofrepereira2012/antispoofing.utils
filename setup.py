@@ -20,6 +20,7 @@ setup(
     # This line is required for any distutils based packaging.
     packages=find_packages(),
     include_package_data = True,
+    zip_safe = False,
 
     install_requires=[
       "setuptools",
