@@ -163,6 +163,44 @@ class ScoreFusion:
     return outputData
 
 
+  def countCommonErrors(self,scoreReader, thresholds, label):
+    """
+    Calculate the number of common errors that two or more different algorithms make.
+
+    @param scoreReader Score reader with the scores of each of the algorithms.
+    @param thresholds An iterable (list or tuple) with the thresholds used for binary classification of each of the algorithms (for example, threshold on EER or HTER on the development set)
+    @param label 1 if the scores in the scoreReader are for positive, 0 if they are for negative samples
+   
+    @return Number of common errors of the counter measures
+
+    Note: no normalization is done. It is assumed that the provided thresholds are on the same scale as the scores in the Score Reader
+    """
+
+    self.__checkCounterMeasureNumbers(self.__realScoreReader,scoreReader)
+
+    if len(scoreReader.scoresDir) != len(thresholds):
+      raise ScoreFusionException("Number of countermeasures does not match with the number of threholds")
+
+    allData = scoreReader.getConcatenetedScores()
+    numErrors = []
+
+    for i in range(0, len(thresholds)): # put 1 for all the countermeasures which decided positively for a sample, and 0 if they decided negatively for a sample
+      allData[allData[:,i]>thresholds[i], i] = thresholds[i] + 1
+      allData[allData[:,i]<=thresholds[i], i] = thresholds[i]
+      allData[:,i] -= thresholds[i]
+      numErrors.append(numpy.sum(allData[:,i] != label))
+      
+
+    decisionList = numpy.sum(allData, axis=1)
+    
+    if label == 1: # the samples we deal with are positive, common errors are the samples which are classified as negative by all the counter measures
+      numCommonErrors = sum(decisionList == 0)
+    else: # the samples we deal with are negative, common errors are the samples which are classified as positive by all the counter measures
+      numCommonErrors = sum(decisionList == len(thresholds))
+
+    relativeCommonErrors = [float(numCommonErrors) / x for x in numErrors]   # the number of common errors relative to the number of errors for each counter measure
+
+    return numCommonErrors, relativeCommonErrors
 
 
 class ScoreFusionException(Exception):
