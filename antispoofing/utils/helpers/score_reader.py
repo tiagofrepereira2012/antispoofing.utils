@@ -26,6 +26,18 @@ class ScoreReader:
     return "%d video files " % len(self.files)
 
 
+  def __reshape(self,scores):
+    """
+    A little hack. Sorry
+
+    The motion package has the format x,1 and the lbptop has the format 1,x
+    """
+    if(scores.shape[1]==1):
+      scores = numpy.reshape(scores,(scores.shape[1],scores.shape[0]))
+
+    return scores
+
+
   def getScores(self,onlyValidScores=True):
     """
     Return a numpy.array with the scores of all xbob.db.replay.File
@@ -38,6 +50,7 @@ class ScoreReader:
     for f in self.files:
       fileName = str(f.make_path(self.inputDir,extension='.hdf5'))
       scores = bob.io.load(fileName)
+      scores = self.__reshape(scores)
       totalScores =totalScores + scores.shape[1]
 
     #allScores = numpy.zeros(shape=(1,totalScores))
@@ -47,6 +60,7 @@ class ScoreReader:
       fileName = str(f.make_path(self.inputDir,extension='.hdf5'))
 
       scores = bob.io.load(fileName)
+      scores = self.__reshape(scores)
 
       #allScores=numpy.concatenate((allScores,scores),axis=1)
       #allScores[0,offset:offset+scores.shape[1]] = scores
