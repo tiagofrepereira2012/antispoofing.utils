@@ -45,7 +45,7 @@ class ScoreReader:
     @param onlyValidScores Will return only the valid scores
     """
 
-    #Findng the number of elements
+    #Finding the number of elements
     totalScores = 0
     for f in self.files:
       fileName = str(f.make_path(self.inputDir,extension='.hdf5'))
@@ -72,5 +72,4 @@ class ScoreReader:
       allScores = allScores[(numpy.where(numpy.isnan(allScores)==False))[0]]
 
     return allScores
-
 

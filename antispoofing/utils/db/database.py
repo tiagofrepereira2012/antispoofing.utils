@@ -122,11 +122,13 @@ class File(object):
     """
     return 
 
-
   @abc.abstractmethod
   def get_client_id(self):
     """The client identifier to which this file is bound to"""
 
+  @abc.abstractmethod
+  def is_real(self):
+    """Returns True if the file belongs to a real access, False otherwise"""
 
 
 class Database(object):

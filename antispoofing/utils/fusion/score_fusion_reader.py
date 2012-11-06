@@ -82,8 +82,6 @@ class ScoreFusionReader:
 
     return concatenatedScores
 
-
-
   def getScoresByIndex(self,index):
     """
     Get an specific set of scores by index
