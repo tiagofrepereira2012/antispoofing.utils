@@ -86,5 +86,8 @@ def norm_range(data, mins, maxs, lowbound, highbound):
   addit.fill(lowbound)
   for i in range(data.shape[0]): # for each feature vector
     data[i] = diff * (data[i] - mins) / denom + lowbound
-    data[i][numpy.isnan(data[i])] = (lowbound + highbound) / 2
+    nanCounter = numpy.isnan(data[i])
+    #If all data was nan, maitain nan,
+    if(sum(nanCounter)!=data.shape[1]):
+      data[i][numpy.isnan(data[i])] = (lowbound + highbound) / 2
   return data
