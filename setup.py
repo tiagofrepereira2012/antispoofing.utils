@@ -34,6 +34,7 @@ setup(
     entry_points={
       'console_scripts': [
         'merge_scores.py = antispoofing.utils.script.merge_scores:main',
+        'test_db.py = antispoofing.utils.script.test_db:main',
         ],
       },
 

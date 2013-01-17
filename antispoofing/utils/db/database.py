@@ -215,7 +215,7 @@ class Database(object):
 
     propname
       A string or an iterable of strings that define at least one access
-      protocol this dataset must implement (e.g. ``video`` or ``photo``).
+      protocol this dataset must implement (e.g. ``video`` or ``image``).
 
     Returns ``True`` if the dataset implements **any** of the access protocols
     or ``False`` otherwise.

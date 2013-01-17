@@ -49,7 +49,7 @@ class DatabaseAll(DatabaseBase):
     return "Fusion with all antispoofing databases available in this package"
   long_description.__doc__ = DatabaseBase.long_description.__doc__
 
-
+  '''
   def implements_any_of(self, propname):
     if isinstance(propname, (tuple,list)):
       return 'video' in propname
@@ -60,7 +60,20 @@ class DatabaseAll(DatabaseBase):
 
     # does not implement the given access protocol
     return False
- 
+  '''
+  
+  def implements_any_of(self, propname):
+    if isinstance(propname, (tuple,list)):
+      return 'video' in propname or 'image' in propname
+    elif propname is None:
+      return True
+    elif isinstance(propname, (str,unicode)):
+      return 'video' == propname or 'image' == propname
+
+    # does not implement the given access protocol
+    return False
+    
+    
   def get_train_data(self):
     import pkg_resources
     real_data = []; attack_data = [];
