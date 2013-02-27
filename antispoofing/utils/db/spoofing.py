@@ -41,6 +41,13 @@ class DatabaseAll(DatabaseBase):
     return
   create_subparser.__doc__ = DatabaseBase.create_subparser.__doc__
   
+  def name(self):
+    return 'Fused datasets (all)'
+
+  def version(self):
+    import pkg_resources  # part of setuptools
+    return pkg_resources.require('antispoofing.utils')[0].version
+  
   def short_description(self):
     return "Fusion with all antispoofing databases available in this package"
   short_description.__doc__ = DatabaseBase.short_description.__doc__
@@ -125,3 +132,9 @@ class DatabaseAll(DatabaseBase):
 
     return (real_data,attack_data)
   get_all_data.__doc__ = DatabaseBase.get_all_data.__doc__
+
+  def get_test_filters(self):
+    raise NotImplementedError, "You cannot query for filters to the test set of this database because it is just a dumb fusion of all databases available in your current environment"
+  
+  def get_filtered_test_data(self, filter):
+    raise NotImplementedError, "You cannot apply a filter to the test set of this database because it is just a dumb fusion of all databases available in your current environment"

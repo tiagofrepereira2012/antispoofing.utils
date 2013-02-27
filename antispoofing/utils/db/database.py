@@ -163,9 +163,27 @@ class Database(object):
     return
 
   @abc.abstractmethod
+  def get_test_filters(self):
+    """
+    Will return a list with the valid filter strings that can be used during
+    test, to organize the data in sub-categories instead of returning a whole
+    set of real-accesses and attacks.
+    """
+
+  @abc.abstractmethod
   def get_test_data(self):
     """
     Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for test (supposed to report the results)
+    """
+    return
+
+  @abc.abstractmethod
+  def get_filtered_test_data(self, filter):
+    """
+    Will return a dictionary with keys corresponding to the filtered categories
+    defined by ``filter`` and the values corresponding to the real-access and
+    attack objects that should be considered for testing your classification
+    for that sub-category.
     """
     return
 
@@ -180,6 +198,20 @@ class Database(object):
   # Management methods #
   ######################
   
+  @abc.abstractmethod
+  def name(self):
+    """
+    Returns the name (string) of the database.
+    """
+    return
+
+  @abc.abstractmethod
+  def version(self):
+    """
+    Returns the version (string) of the database.
+    """
+    return
+
   @abc.abstractmethod
   def create_subparser(self, subparser, entry_point_name):
     """
