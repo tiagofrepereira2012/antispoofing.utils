@@ -38,23 +38,33 @@ class ScoreReader:
     return scores
 
 
-  def getScores(self,onlyValidScores=True):
+  def getScores(self,onlyValidScores=True, average=False, average_size=100):
     """
     Return a numpy.array with the scores of all xbob.db.replay.File
 
-    @param onlyValidScores Will return only the valid scores
+      onlyValidScores: Will return only the valid scores
+      average: Will average a set of scores
+      average_size: amount of acumulated scores in a video
     """
 
     #Finding the number of elements
     totalScores = 0
-    for f in self.files:
-      fileName = str(f.make_path(self.inputDir,extension='.hdf5'))
-      scores = bob.io.load(fileName)
-      scores = self.__reshape(scores)
-      totalScores =totalScores + scores.shape[1]
+    if(average):
+      totalScores = len(self.files)
+    else:
+      for f in self.files:
+        fileName = str(f.make_path(self.inputDir,extension='.hdf5'))
+        scores = bob.io.load(fileName)
+        scores = self.__reshape(scores)
+
+        if(onlyValidScores):
+          scores = scores[(numpy.where(numpy.isnan(scores)==False))]
+
+        totalScores =totalScores + len(scores)
 
     #allScores = numpy.zeros(shape=(1,totalScores))
     allScores = numpy.zeros(shape=(totalScores))
+
     offset = 0
     for f in self.files:
       fileName = str(f.make_path(self.inputDir,extension='.hdf5'))
@@ -62,14 +72,19 @@ class ScoreReader:
       scores = bob.io.load(fileName)
       scores = self.__reshape(scores)
 
+      if(onlyValidScores):
+        scores = scores[(numpy.where(numpy.isnan(scores)==False))]
+
+      if(average):
+        scores = scores[(numpy.where(numpy.isnan(scores)==False))]#Removing nan
+        #scores = numpy.average(scores)
+        scores = numpy.sum(scores[0:average_size]) / float(average_size)
+        scores = numpy.array([[scores]]) #reshaping
+
       #allScores=numpy.concatenate((allScores,scores),axis=1)
       #allScores[0,offset:offset+scores.shape[1]] = scores
-      allScores[offset:offset+scores.shape[1]] = numpy.reshape(scores,(scores.shape[1]))
-      offset = offset + scores.shape[1]
-
-
-    if(onlyValidScores):
-      allScores = allScores[(numpy.where(numpy.isnan(allScores)==False))[0]]
+      allScores[offset:offset+len(scores)] = numpy.reshape(scores,(len(scores)))
+      offset = offset + len(scores)
 
     return allScores
 
