@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # vim: set fileencoding=utf-8 :
 # Tiago de Freitas Pereira <tiagofrepereira@gmail.com>
-# Thu 27 Sep 2011 13:01:44 CEST 
+# Thu 27 Sep 2012 13:01:44 CEST 
 
 """
 Class that work with the scores
@@ -28,13 +28,14 @@ class ScoreReader:
 
   def __reshape(self,scores):
     """
-    A little hack. Sorry
+    A little hack.
 
     The motion package has the format x,1 and the lbptop has the format 1,x
     """
     if(scores.shape[1]==1):
       scores = numpy.reshape(scores,(scores.shape[1],scores.shape[0]))
 
+    scores = numpy.reshape(scores,scores.shape[1])
     return scores
 
 
@@ -83,6 +84,7 @@ class ScoreReader:
 
       #allScores=numpy.concatenate((allScores,scores),axis=1)
       #allScores[0,offset:offset+scores.shape[1]] = scores
+
       allScores[offset:offset+len(scores)] = numpy.reshape(scores,(len(scores)))
       offset = offset + len(scores)
 
