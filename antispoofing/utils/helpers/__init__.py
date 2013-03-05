@@ -1,4 +1,6 @@
 from .score_reader import *
+import os
+
 
 def write_icb2013_score(scores_list, output_dir):
   """
@@ -37,4 +39,16 @@ def write_icb2013_score(scores_list, output_dir):
   write_txt(os.path.join(output_dir,'devel.txt'),devel_list)
   write_txt(os.path.join(output_dir,'anonymous.txt'),anonymous_list)
 
-  
+
+def ensure_dir(dirname):
+  """ Creates the directory dirname if it does not already exist,
+      taking into account concurrent 'creation' on the grid.
+      An exception is thrown if a file (rather than a directory) already 
+      exists. """
+  try:
+    # Tries to create the directory
+    os.makedirs(dirname)
+  except OSError:
+    # Check that the directory exists
+    if os.path.isdir(dirname): pass
+    else: raise
