@@ -2,11 +2,16 @@
 # vim: set fileencoding=utf-8 :
 # Tiago de Freitas Pereira <tiagofrepereira@gmail.com>
 # Andre Anjos <andre.anjos@idiap.ch>
-# Tue 01 Oct 2012 16:48:44 CEST 
+# Tue 01 Oct 2012 16:48:44 CEST
 
 import abc
 
-class File(object, metaclass=abc.ABCMeta):
+def with_metaclass(meta, *bases):
+  """Create a base class with a metaclass (works with Python2 and Python3)."""
+
+  return meta("NewBase", bases, {})
+
+class File(with_metaclass(abc.ABCMeta, object)):
   """Abstract class that define basic properties of File objects"""
 
   @abc.abstractmethod
@@ -15,7 +20,7 @@ class File(object, metaclass=abc.ABCMeta):
 
     Keyword Parameters:
 
-    directory 
+    directory
       An optional directory name that will be prefixed to the returned result.
 
     Returns a string containing the video file path.
@@ -28,7 +33,7 @@ class File(object, metaclass=abc.ABCMeta):
 
     Keyword Parameters:
 
-    directory 
+    directory
       An optional directory name that will be prefixed to the returned result.
 
     Returns a string containing the face file path.
@@ -42,7 +47,7 @@ class File(object, metaclass=abc.ABCMeta):
 
     Keyword Parameters
 
-    directory 
+    directory
       A directory name that will be prepended to the final filepaths where the
       face bounding boxes are located, if not on the current directory.
 
@@ -67,17 +72,17 @@ class File(object, metaclass=abc.ABCMeta):
 
     Keyword Parameters:
 
-    data 
+    data
       The data blob to be saved (normally a :py:class:`numpy.ndarray`).
 
-    directory 
+    directory
       [optional] If not empty or None, this directory is prefixed to the final
       file destination
 
-    extension 
+    extension
       [optional] The extension of the filename - this will control the type of
-      output and the codec for saving the input blob.  
-      
+      output and the codec for saving the input blob.
+
     """
     return
 
@@ -88,17 +93,17 @@ class File(object, metaclass=abc.ABCMeta):
 
     Keyword Parameters:
 
-    data 
+    data
       The data blob to be saved (normally a :py:class:`numpy.ndarray`).
 
-    directory 
+    directory
       [optional] If not empty or None, this directory is prefixed to the final
       file destination
 
-    extension 
+    extension
       [optional] The extension of the filename - this will control the type of
       output and the codec for saving the input blob.
-      
+
     """
     return
 
@@ -108,7 +113,7 @@ class File(object, metaclass=abc.ABCMeta):
 
     Keyword Parameters:
 
-    directory 
+    directory
       An optional directory name that will be prefixed to the returned result.
 
     extension
@@ -118,7 +123,7 @@ class File(object, metaclass=abc.ABCMeta):
 
     Returns a string containing the newly generated file path.
     """
-    return 
+    return
 
   @abc.abstractmethod
   def get_client_id(self):
@@ -129,7 +134,7 @@ class File(object, metaclass=abc.ABCMeta):
     """Returns True if the file belongs to a real access, False otherwise"""
 
 
-class Database(object, metaclass=abc.ABCMeta):
+class Database(with_metaclass(abc.ABCMeta, object)):
   """Abstract class that define the basic API for querying antispoofing
   databases. Queries result in :py:class:`File` objects.
   """
@@ -193,7 +198,7 @@ class Database(object, metaclass=abc.ABCMeta):
   ######################
   # Management methods #
   ######################
-  
+
   @abc.abstractmethod
   def name(self):
     """
@@ -223,7 +228,7 @@ class Database(object, metaclass=abc.ABCMeta):
       My name, given on the setup of this package (or whatever I'm declared as
       an ``entry_point``).
     """
-    return 
+    return
 
   @abc.abstractmethod
   def short_description(self):
@@ -238,7 +243,7 @@ class Database(object, metaclass=abc.ABCMeta):
   @abc.abstractmethod
   def implements_any_of(self, propname):
     """Tells if this database subtype implements a given property
-    
+
     Keyword Parameters
 
     propname
