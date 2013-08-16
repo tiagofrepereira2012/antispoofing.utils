@@ -5,11 +5,7 @@
 # Tue 01 Oct 2012 16:48:44 CEST
 
 import abc
-
-def with_metaclass(meta, *bases):
-  """Create a base class with a metaclass (works with Python2 and Python3)."""
-
-  return meta("NewBase", bases, {})
+from bob.db.driver import with_metaclass
 
 class File(with_metaclass(abc.ABCMeta, object)):
   """Abstract class that define basic properties of File objects"""
