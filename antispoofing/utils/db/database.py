@@ -6,10 +6,8 @@
 
 import abc
 
-class File(object):
+class File(object, metaclass=abc.ABCMeta):
   """Abstract class that define basic properties of File objects"""
-
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def videofile(self, directory=None):
@@ -131,12 +129,10 @@ class File(object):
     """Returns True if the file belongs to a real access, False otherwise"""
 
 
-class Database(object):
+class Database(object, metaclass=abc.ABCMeta):
   """Abstract class that define the basic API for querying antispoofing
   databases. Queries result in :py:class:`File` objects.
   """
-
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def __init__(self, parsed_arguments):

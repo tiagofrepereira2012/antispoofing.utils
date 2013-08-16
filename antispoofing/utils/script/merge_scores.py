@@ -45,7 +45,7 @@ def main():
     parser.error("input directory `%s' does not exist" % args.inputdir)
 
   if not os.path.exists(args.outputdir):
-    if args.verbose: print "Creating output directory %s..." % args.outputdir
+    if args.verbose: print("Creating output directory %s..." % args.outputdir)
     os.makedirs(args.outputdir)
 
   db = args.cls(args)
@@ -53,14 +53,14 @@ def main():
   def write_file(group):
 
     if args.verbose:
-      print "Processing '%s' group..." % group
+      print("Processing '%s' group..." % group)
   
     out = open(os.path.join(args.outputdir, '%s-5col.txt' % group), 'wt')
 
     if group == 'train': reals, attacks = db.get_train_data()
     elif group == 'devel': reals, attacks = db.get_devel_data()
     elif group == 'test': reals, attacks = db.get_test_data()
-    else: raise RuntimeError, "group parameter has to be train, devel or test"
+    else: raise RuntimeError("group parameter has to be train, devel or test")
 
     total = len(reals) + len(attacks)
 
@@ -69,7 +69,7 @@ def main():
       counter += 1
 
       if args.verbose: 
-        print "Processing file %s [%d/%d]..." % (obj.make_path(), counter, total)
+        print("Processing file %s [%d/%d]..." % (obj.make_path(), counter, total))
 
       arr = obj.load(args.inputdir, '.hdf5')
       arr = arr[~numpy.isnan(arr)] #remove NaN entries => invalid
@@ -85,7 +85,7 @@ def main():
       counter += 1
 
       if args.verbose: 
-        print "Processing file %s [%d/%d]..." % (obj.make_path(), counter, total)
+        print("Processing file %s [%d/%d]..." % (obj.make_path(), counter, total))
 
       arr = obj.load(args.inputdir, '.hdf5')
       arr = arr[~numpy.isnan(arr)] #remove NaN entries => invalid
