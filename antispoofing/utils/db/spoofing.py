@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # vim: set fileencoding=utf-8 :
 # Tiago de Freitas Pereira <tiagofrepereira@gmail.com>
-# Tue 01 Oct 2012 16:48:44 CEST 
+# Tue 01 Oct 2012 16:48:44 CEST
 
 """Replay attack database implementation as antispoofing.utils.db.Database"""
 
+import six
 from . import __doc__ as long_description
 from antispoofing.utils.db import File as FileBase, Database as DatabaseBase
 
@@ -29,28 +30,28 @@ class DatabaseAll(DatabaseBase):
 
     ## remove '.. ' lines from rst
     desc = ''
-    p = subparser.add_parser(entry_point_name, 
+    p = subparser.add_parser(entry_point_name,
         help=self.short_description(),
         description=desc,
         formatter_class=RawDescriptionHelpFormatter)
 
     p.set_defaults(name=entry_point_name)
     p.set_defaults(cls=DatabaseAll)
-    
+
     return
   create_subparser.__doc__ = DatabaseBase.create_subparser.__doc__
-  
+
   def name(self):
     return 'Fused datasets (all)'
 
   def version(self):
     import pkg_resources  # part of setuptools
     return pkg_resources.require('antispoofing.utils')[0].version
-  
+
   def short_description(self):
     return "Fusion with all antispoofing databases available in this package"
   short_description.__doc__ = DatabaseBase.short_description.__doc__
- 
+
   def long_description(self):
     return "Fusion with all antispoofing databases available in this package"
   long_description.__doc__ = DatabaseBase.long_description.__doc__
@@ -61,25 +62,25 @@ class DatabaseAll(DatabaseBase):
       return 'video' in propname
     elif propname is None:
       return True
-    elif isinstance(propname, (str,unicode)):
+    elif isinstance(propname, six.string_types):
       return 'video' == propname
 
     # does not implement the given access protocol
     return False
   '''
-  
+
   def implements_any_of(self, propname):
     if isinstance(propname, (tuple,list)):
       return 'video' in propname or 'image' in propname
     elif propname is None:
       return True
-    elif isinstance(propname, str):
+    elif isinstance(propname, six.string_types):
       return 'video' == propname or 'image' == propname
 
     # does not implement the given access protocol
     return False
-    
-    
+
+
   def get_train_data(self):
     import pkg_resources
     real_data = []; attack_data = [];
@@ -134,6 +135,6 @@ class DatabaseAll(DatabaseBase):
 
   def get_test_filters(self):
     raise NotImplementedError("You cannot query for filters to the test set of this database because it is just a dumb fusion of all databases available in your current environment")
-  
+
   def get_filtered_test_data(self, filter):
     raise NotImplementedError("You cannot apply a filter to the test set of this database because it is just a dumb fusion of all databases available in your current environment")
