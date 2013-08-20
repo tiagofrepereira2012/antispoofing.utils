@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 setup(
 
     name='antispoofing.utils',
-    version='1.0.3a0',
+    version='1.0.5a0',
     description='Utilitary package for antispoofing countermeasures',
     url='http://pypi.python.org/pypi/antispoofing.utils',
     license='GPLv3',
@@ -24,6 +24,7 @@ setup(
 
     install_requires=[
       "setuptools",
+      "six",
       "bob >= 1.1.0",
     ],
 
@@ -44,6 +45,7 @@ setup(
       'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
       'Natural Language :: English',
       'Programming Language :: Python',
+      'Programming Language :: Python :: 3',
       'Topic :: Software Development :: Libraries :: Python Modules',
       'Topic :: Scientific/Engineering :: Artificial Intelligence',
       ],

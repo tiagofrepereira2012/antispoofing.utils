@@ -73,7 +73,7 @@ class DatabaseAll(DatabaseBase):
       return 'video' in propname or 'image' in propname
     elif propname is None:
       return True
-    elif isinstance(propname, (str,unicode)):
+    elif isinstance(propname, str):
       return 'video' == propname or 'image' == propname
 
     # does not implement the given access protocol
@@ -133,7 +133,7 @@ class DatabaseAll(DatabaseBase):
   get_all_data.__doc__ = DatabaseBase.get_all_data.__doc__
 
   def get_test_filters(self):
-    raise NotImplementedError, "You cannot query for filters to the test set of this database because it is just a dumb fusion of all databases available in your current environment"
+    raise NotImplementedError("You cannot query for filters to the test set of this database because it is just a dumb fusion of all databases available in your current environment")
   
   def get_filtered_test_data(self, filter):
-    raise NotImplementedError, "You cannot apply a filter to the test set of this database because it is just a dumb fusion of all databases available in your current environment"
+    raise NotImplementedError("You cannot apply a filter to the test set of this database because it is just a dumb fusion of all databases available in your current environment")

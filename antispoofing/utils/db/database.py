@@ -2,14 +2,13 @@
 # vim: set fileencoding=utf-8 :
 # Tiago de Freitas Pereira <tiagofrepereira@gmail.com>
 # Andre Anjos <andre.anjos@idiap.ch>
-# Tue 01 Oct 2012 16:48:44 CEST 
+# Tue 01 Oct 2012 16:48:44 CEST
 
 import abc
+import six
 
-class File(object):
+class File(six.with_metaclass(abc.ABCMeta, object)):
   """Abstract class that define basic properties of File objects"""
-
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def videofile(self, directory=None):
@@ -17,7 +16,7 @@ class File(object):
 
     Keyword Parameters:
 
-    directory 
+    directory
       An optional directory name that will be prefixed to the returned result.
 
     Returns a string containing the video file path.
@@ -30,7 +29,7 @@ class File(object):
 
     Keyword Parameters:
 
-    directory 
+    directory
       An optional directory name that will be prefixed to the returned result.
 
     Returns a string containing the face file path.
@@ -44,7 +43,7 @@ class File(object):
 
     Keyword Parameters
 
-    directory 
+    directory
       A directory name that will be prepended to the final filepaths where the
       face bounding boxes are located, if not on the current directory.
 
@@ -69,17 +68,17 @@ class File(object):
 
     Keyword Parameters:
 
-    data 
+    data
       The data blob to be saved (normally a :py:class:`numpy.ndarray`).
 
-    directory 
+    directory
       [optional] If not empty or None, this directory is prefixed to the final
       file destination
 
-    extension 
+    extension
       [optional] The extension of the filename - this will control the type of
-      output and the codec for saving the input blob.  
-      
+      output and the codec for saving the input blob.
+
     """
     return
 
@@ -90,17 +89,17 @@ class File(object):
 
     Keyword Parameters:
 
-    data 
+    data
       The data blob to be saved (normally a :py:class:`numpy.ndarray`).
 
-    directory 
+    directory
       [optional] If not empty or None, this directory is prefixed to the final
       file destination
 
-    extension 
+    extension
       [optional] The extension of the filename - this will control the type of
       output and the codec for saving the input blob.
-      
+
     """
     return
 
@@ -110,7 +109,7 @@ class File(object):
 
     Keyword Parameters:
 
-    directory 
+    directory
       An optional directory name that will be prefixed to the returned result.
 
     extension
@@ -120,7 +119,7 @@ class File(object):
 
     Returns a string containing the newly generated file path.
     """
-    return 
+    return
 
   @abc.abstractmethod
   def get_client_id(self):
@@ -131,12 +130,10 @@ class File(object):
     """Returns True if the file belongs to a real access, False otherwise"""
 
 
-class Database(object):
+class Database(six.with_metaclass(abc.ABCMeta, object)):
   """Abstract class that define the basic API for querying antispoofing
   databases. Queries result in :py:class:`File` objects.
   """
-
-  __metaclass__ = abc.ABCMeta
 
   @abc.abstractmethod
   def __init__(self, parsed_arguments):
@@ -197,7 +194,7 @@ class Database(object):
   ######################
   # Management methods #
   ######################
-  
+
   @abc.abstractmethod
   def name(self):
     """
@@ -227,7 +224,7 @@ class Database(object):
       My name, given on the setup of this package (or whatever I'm declared as
       an ``entry_point``).
     """
-    return 
+    return
 
   @abc.abstractmethod
   def short_description(self):
@@ -242,7 +239,7 @@ class Database(object):
   @abc.abstractmethod
   def implements_any_of(self, propname):
     """Tells if this database subtype implements a given property
-    
+
     Keyword Parameters
 
     propname
