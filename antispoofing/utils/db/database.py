@@ -5,9 +5,9 @@
 # Tue 01 Oct 2012 16:48:44 CEST
 
 import abc
-from bob.db.driver import with_metaclass
+import six
 
-class File(with_metaclass(abc.ABCMeta, object)):
+class File(six.with_metaclass(abc.ABCMeta, object)):
   """Abstract class that define basic properties of File objects"""
 
   @abc.abstractmethod
@@ -130,7 +130,7 @@ class File(with_metaclass(abc.ABCMeta, object)):
     """Returns True if the file belongs to a real access, False otherwise"""
 
 
-class Database(with_metaclass(abc.ABCMeta, object)):
+class Database(six.with_metaclass(abc.ABCMeta, object)):
   """Abstract class that define the basic API for querying antispoofing
   databases. Queries result in :py:class:`File` objects.
   """

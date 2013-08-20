@@ -24,6 +24,7 @@ setup(
 
     install_requires=[
       "setuptools",
+      "six",
       "bob >= 1.1.0",
     ],
 
