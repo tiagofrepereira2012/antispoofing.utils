@@ -6,7 +6,6 @@
 """Replay attack database implementation as antispoofing.utils.db.Database"""
 
 from . import __doc__ as long_description
-from . import Database as ReplayDatabase
 from antispoofing.utils.db import File as FileBase, Database as DatabaseBase
 
 class DatabaseAll(DatabaseBase):
