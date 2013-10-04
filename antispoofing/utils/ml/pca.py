@@ -22,7 +22,7 @@ def make_pca(data, perc, norm=False):
     if set to True, unit-variance normalization will be done to the data prior to reduction (zero mean is done by default anyway)
 """
 
-  T = bob.trainer.SVDPCATrainer()
+  T = bob.trainer.PCATrainer()
   params = T.train(data) # params contain a tuple (eigenvecetors, eigenvalues) sorted in descending order
 
   eigvalues = params[1]
