@@ -21,7 +21,6 @@ def main():
 
   args = parser.parse_args()
 
-  import ipdb; ipdb.set_trace()
   #######################
   # Loading the database objects
   #######################
