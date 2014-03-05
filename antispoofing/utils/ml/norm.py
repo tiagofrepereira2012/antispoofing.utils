@@ -9,12 +9,17 @@ import math
 """ Utility functions for column-wise normalization of data
 """
 
-def calc_mean(c0, c1):
-  """ Calculates the mean of the data."""
-  return (numpy.mean(c0, 0) + numpy.mean(c1, 0)) / 2.
+def calc_mean(c0, c1=[]):
+  """ Calculates the mean of the data.""" 
+  if c1 != []:   
+    return (numpy.mean(c0, 0) + numpy.mean(c1, 0)) / 2.
+  else:
+    return numpy.mean(c0, 0)  
 
-def calc_std(c0, c1):
+def calc_std(c0, c1=[]):
   """ Calculates the variance of the data."""
+  if c1 == []:
+    return numpy.std(c0, 0)
   prop = float(len(c0)) / float(len(c1))
   if prop < 1: 
     p0 = int(math.ceil(1/prop))
@@ -29,7 +34,7 @@ def calc_std(c0, c1):
 @param c1
 @param nonStdZero if the std was zero, convert to one. This will avoid a zero division
 """
-def calc_mean_std(c0, c1,nonStdZero=False):
+def calc_mean_std(c0, c1=[], nonStdZero=False):
   """ Calculates both the mean of the data. """
   mi = calc_mean(c0,c1)
   std = calc_std(c0,c1)
@@ -38,13 +43,9 @@ def calc_mean_std(c0, c1,nonStdZero=False):
 
   return mi, std
 
-def calc_mean_std_clip(c0, c1):
-  """ Calculates both the mean of the data. """
-  x0 = numpy.clip(c0, 0., 300.)
-  x1 = numpy.clip(c1, 0., 300.)
-  return calc_mean(x0, x1), calc_std(x0, x1)
-
-def calc_bounds(c0, c1):
+def calc_bounds(c0, c1=[]):
+  if c1 == []:
+    c1 = c0;
   mn = numpy.min(numpy.vstack([numpy.min(c0, 0), numpy.min(c1, 0)]), 0)
   mx = numpy.max(numpy.vstack([numpy.max(c0, 0), numpy.max(c1, 0)]), 0)
   div = (mx - mn) / 2.0
