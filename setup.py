@@ -23,7 +23,7 @@ from setuptools import setup, find_packages
 setup(
 
     name='antispoofing.utils',
-    version='1.1.3a0',
+    version='1.1.3',
     description='Utilitary package for antispoofing countermeasures',
     url='http://pypi.python.org/pypi/antispoofing.utils',
     license='GPLv3',
