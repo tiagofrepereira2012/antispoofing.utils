@@ -103,6 +103,6 @@ get you a fully operational test and development environment.
 Problems
 --------
 
-In case of problems, please contact any of the authors of the paper.
+In case of problems, please contact tiagofrepereira@gmail.com or ivana.chingovska@idiap.ch.
 
 

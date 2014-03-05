@@ -27,8 +27,8 @@ setup(
     description='Utilitary package for antispoofing countermeasures',
     url='http://pypi.python.org/pypi/antispoofing.utils',
     license='GPLv3',
-    author='Tiago de Freitas Pereira',
-    author_email='tiagofrepereira@gmail.com',
+    author='Tiago de Freitas Pereira, Ivana Chingovska',
+    author_email='tiagofrepereira@gmail.com, ivana.chingovska@idiap.ch',
     long_description=open('README.rst').read(),
     keywords='antispoofing utilities, antispoofing databases, bob, xbob',
 
