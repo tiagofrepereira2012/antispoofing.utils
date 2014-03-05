@@ -141,9 +141,33 @@ class Database(six.with_metaclass(abc.ABCMeta, object)):
     arguments."""
     return
 
+  @abc.abstractmethod
+  def get_protocols(self, parsed_arguments):
+    """Get the protocols available for this database."""
+    return
+    
+  @abc.abstractmethod
+  def get_attack_types(self, parsed_arguments):
+    """Get the attack types available for this database."""
+    return  
+
+  @abc.abstractmethod
+  def get_clients(self, group):
+    """
+    Will return the ids of the clients in this database, based on the group (train, devel or test)
+    """
+    return
+
   #################
   # File querying #
   #################
+
+  @abc.abstractmethod
+  def get_enroll_data(self, group=None):
+    """
+    Will return the enrollment File objects (antispoofing.utils.db.files.File) for the specified group (or for all groups)
+    """
+    return
 
   @abc.abstractmethod
   def get_train_data(self):
@@ -183,6 +207,16 @@ class Database(six.with_metaclass(abc.ABCMeta, object)):
     for that sub-category.
     """
     return
+    
+  @abc.abstractmethod
+  def get_filtered_devel_data(self, filter):
+    """
+    Will return a dictionary with keys corresponding to the filtered categories
+    defined by ``filter`` and the values corresponding to the real-access and
+    attack objects that should be considered for development of your method
+    for that sub-category.
+    """
+    return  
 
   @abc.abstractmethod
   def get_all_data(self):
@@ -190,6 +224,14 @@ class Database(six.with_metaclass(abc.ABCMeta, object)):
     Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for ALL group sets
     """
     return
+
+  @abc.abstractmethod
+  def get_test_data(self):
+    """
+    Will return the real access and the attack File objects (antispoofing.utils.db.files.File) for test (supposed to report the results)
+    """
+    return
+
 
   ######################
   # Management methods #
@@ -199,6 +241,13 @@ class Database(six.with_metaclass(abc.ABCMeta, object)):
   def name(self):
     """
     Returns the name (string) of the database.
+    """
+    return
+
+  @abc.abstractmethod
+  def short_name(self):
+    """
+    Returns the short name (string) of the database.
     """
     return
 
