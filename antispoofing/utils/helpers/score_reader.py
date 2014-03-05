@@ -30,10 +30,9 @@ class ScoreReader:
     """
     A little hack.
 
-    The motion package has the format x,1 and the lbptop has the format 1,x
+    Different score files might have different organization of scores, so reshaping is needed
     """
-    if(scores.shape[1]==1):
-      scores = numpy.reshape(scores,(scores.shape[1],scores.shape[0]))
+    scores = numpy.reshape(scores,(1, scores.size))
 
     scores = numpy.reshape(scores,scores.shape[1])
     return scores
