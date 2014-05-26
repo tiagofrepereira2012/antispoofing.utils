@@ -33,14 +33,10 @@ def make_pca(data, perc, norm=False, cov=False):
   eigvalues = params[1]
   
   # calculating the cumulative energy of the eigenvalues
-  cumEnergy = [sum(eigvalues[0:eigvalues.size-i]) / sum(eigvalues) for i in range(0, eigvalues.size+1)]
+  cumEnergy = [sum(eigvalues[0:eigvalues.size-i]) / sum(eigvalues) for i in range(0, eigvalues.size)]
   
   # calculating the number of eigenvalues to keep the required energy
-  numeigvalues = eigvalues.size
-  for i in range(0, len(cumEnergy)-1):
-    if cumEnergy[i] < perc:
-      numeigvalues = len(cumEnergy) - i
-      break
+  numeigvalues = len([x for x in cumEnergy if x <= float(perc)])
     
   # recalculating the shape of the LinearMachine
   oldshape = params[0].shape
