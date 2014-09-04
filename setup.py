@@ -23,14 +23,14 @@ from setuptools import setup, find_packages
 setup(
 
     name='antispoofing.utils',
-    version='1.1.3',
+    version='2.0.0a0',
     description='Utilitary package for antispoofing countermeasures',
     url='http://pypi.python.org/pypi/antispoofing.utils',
     license='GPLv3',
     author='Tiago de Freitas Pereira, Ivana Chingovska',
     author_email='tiagofrepereira@gmail.com, ivana.chingovska@idiap.ch',
     long_description=open('README.rst').read(),
-    keywords='antispoofing utilities, antispoofing databases, bob, xbob',
+    keywords='antispoofing utilities, antispoofing databases, bob',
 
     # This line is required for any distutils based packaging.
     packages=find_packages(),
@@ -40,7 +40,11 @@ setup(
     install_requires=[
       "setuptools",
       "six",
-      "bob >= 1.2", #1.1.0
+      "bob.ip.color",
+      "bob.ip.draw",
+      "bob.learn.linear",
+      "bob.measure",
+      "bob.learn.libsvm"
     ],
 
     namespace_packages = [
@@ -55,7 +59,7 @@ setup(
       },
 
     classifiers = [
-      'Development Status :: 5 - Production/Stable',
+      'Development Status :: 4 - Beta',
       'Intended Audience :: Science/Research',
       'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
       'Natural Language :: English',

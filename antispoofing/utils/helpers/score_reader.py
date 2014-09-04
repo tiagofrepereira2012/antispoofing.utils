@@ -8,14 +8,14 @@ Class that work with the scores
 
 """
 
-import bob
+import bob.io.base
 import numpy
 
 class ScoreReader:
 
   def __init__(self,files,inputDir):
     """
-    " Receive a list of xbob.db.replay.File to return the scores
+    " Receive a list of bob.db.replay.File to return the scores
     """
 
     self.files = files
@@ -40,7 +40,7 @@ class ScoreReader:
 
   def getScores(self,onlyValidScores=True, average=False, average_size=100):
     """
-    Return a numpy.array with the scores of all xbob.db.replay.File
+    Return a numpy.array with the scores of all bob.db.replay.File
 
       onlyValidScores: Will return only the valid scores
       average: Will average a set of scores
@@ -54,7 +54,7 @@ class ScoreReader:
     else:
       for f in self.files:
         fileName = str(f.make_path(self.inputDir,extension='.hdf5'))
-        scores = bob.io.load(fileName)
+        scores = bob.io.base.load(fileName)
         scores = self.__reshape(scores)
 
         if(onlyValidScores):
@@ -69,7 +69,7 @@ class ScoreReader:
     for f in self.files:
       fileName = str(f.make_path(self.inputDir,extension='.hdf5'))
 
-      scores = bob.io.load(fileName)
+      scores = bob.io.base.load(fileName)
       scores = self.__reshape(scores)
 
       if(onlyValidScores):

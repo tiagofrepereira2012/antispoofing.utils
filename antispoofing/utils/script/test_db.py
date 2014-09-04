@@ -7,7 +7,6 @@
 
 import os
 import sys
-import bob
 import numpy
 import argparse
 

@@ -3,7 +3,6 @@
 # Tiago de Freitas Pereira <tiagofrepereira@gmail.com>
 # Wed Sep 12 11:43:19 CET 2012
 
-import bob
 import numpy
 
 from . import *

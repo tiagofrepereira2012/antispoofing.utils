@@ -7,7 +7,7 @@
 """
 
 import os
-import bob
+import bob.measure
 import numpy
 import re
 

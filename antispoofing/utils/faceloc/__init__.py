@@ -5,7 +5,6 @@
 
 """Support methods and classes for reading face locations from text files."""
 
-import bob
 import numpy
 from .BoundingBox import *
 

@@ -11,7 +11,6 @@ this script before set in the output file.
 
 import os
 import sys
-import bob
 import numpy
 import argparse
 

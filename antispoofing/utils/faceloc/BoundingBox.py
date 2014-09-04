@@ -3,6 +3,8 @@
 # Andre Anjos <andre.anjos@idiap.ch>
 # Tue 19 Jul 2011 12:53:56 CEST 
 
+import bob.ip.color
+import bob.ip.draw
 
 class BoundingBox:
   """Defines a bounding box object"""
@@ -61,10 +63,10 @@ class BoundingBox:
 
     if image.rank() == 2: #grayscale
       if isinstance(color, (tuple, list)):
-        color = bob.ip.rgb_to_gray_u8(*color)
+        color = bob.ip.color.rgb_to_gray(*color)
 
     # draws one line for each size of the bounding box
     for k in range(thickness):
-      bob.ip.draw_box(image, self.x-k, self.y-k, self.width+2*k, 
+      bob.ip.draw.box(image, self.x-k, self.y-k, self.width+2*k, 
           self.height+2*k)
 

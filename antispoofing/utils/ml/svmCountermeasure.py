@@ -3,7 +3,8 @@
 # Tiago de Freitas Pereira <tiagofrepereira@gmail.com>
 # Thu Sep 13 11:06:19 CET 2012
 
-import bob
+import bob.io.base
+import bob.learn.libsvm
 import numpy
 
 from . import *
@@ -39,9 +40,9 @@ def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0
     train_real = pcareduce(pcaMachine, train_real); train_attack = pcareduce(pcaMachine, train_attack)
 
   #Running the SVM trainer
-  svm_trainer = bob.trainer.SVMTrainer()
+  svm_trainer = bob.learn.libsvm.Trainer()
   svm_trainer.probability = True
-  #svm_trainer.kernel_type = bob.machine.svm_kernel_type.LINEAR
+  #svm_trainer.kernel_type = "LINEAR"
   svmMachine = svm_trainer.train([train_real, train_attack])
 
   return [svmMachine,pcaMachine,mins,maxs]
@@ -113,7 +114,7 @@ def computeScores(train_real, train_attack,devel_real, devel_attack,test_real, t
 Write the normalization file for SVM classification
 """
 def writeNormalizationData(fileName,lowbound,highbound,mins,maxs):
-  hdf5File = bob.io.HDF5File(fileName, openmode_string='w')
+  hdf5File = bob.io.base.HDF5File(fileName, openmode_string='w')
   hdf5File.append('lowbound',lowbound)
   hdf5File.append('highbound',highbound)
   hdf5File.append('mins',mins)
@@ -127,7 +128,7 @@ Load the normalization file for SVM classification
 def readNormalizationData(fileName):
   
   #Opening HDF5 Files
-  hdf5 = bob.io.HDF5File(fileName, openmode_string='r')
+  hdf5 = bob.io.base.HDF5File(fileName, openmode_string='r')
   lowbound  = hdf5.read('lowbound')
   highbound = hdf5.read('highbound')
   mins      = hdf5.read('mins')

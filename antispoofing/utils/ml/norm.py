@@ -2,7 +2,6 @@
 #Ivana Chingovska <ivana.chingovska@idiap.ch>
 #Mon Mar 26 12:07:09 CEST 2012
 
-import bob
 import numpy
 import math
 

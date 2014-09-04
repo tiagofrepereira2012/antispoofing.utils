@@ -4,7 +4,7 @@
 
 "Utility functions for performing PCA dimensionality reduction of data "
 
-import bob
+import bob.learn.linear
 import numpy
 
 def make_pca(data, perc, norm=False, cov=False):
@@ -25,7 +25,7 @@ def make_pca(data, perc, norm=False, cov=False):
     if set to True, the covariance method will be used to compute PCA. Otherwise, the SVD method will be used  
 """
 
-  T = bob.trainer.PCATrainer()
+  T = bob.learn.linear.PCATrainer()
   if cov == True:
     T.use_svd = False
   params = T.train(data) # params contain a tuple (eigenvecetors, eigenvalues) sorted in descending order
@@ -46,12 +46,12 @@ def make_pca(data, perc, norm=False, cov=False):
 
 
 def pcareduce(machine, data):
-  """ Reduces the dimension of the data, using the given bob.machine.LinearMachine (projects each of the data feature vector in the lower dimensional space). Returns numpy.ndarray of the feature vectors with reduced dimensionality. The accepted input data can be in numpy.ndarray format format.
+  """ Reduces the dimension of the data, using the given bob.learn.linear.Machine (projects each of the data feature vector in the lower dimensional space). Returns numpy.ndarray of the feature vectors with reduced dimensionality. The accepted input data can be in numpy.ndarray format format.
 
   Keyword parameters:
 
   machine
-    bob.machine.LinearMachine
+    bob.learn.linear.Machine
   data
     numpy.ndarray 
   """

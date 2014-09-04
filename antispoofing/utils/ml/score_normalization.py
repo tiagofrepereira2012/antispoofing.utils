@@ -2,7 +2,6 @@
 #Tiago de Freitas Pereira <tiagofrepereira@gmail.com>
 #Thu Sep 27 17:04:09 CEST 2012
 
-import bob
 import numpy
 
 

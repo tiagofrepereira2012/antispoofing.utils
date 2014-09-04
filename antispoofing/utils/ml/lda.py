@@ -6,7 +6,7 @@
 """LDA training for the anti-spoofing library
 """
 
-import bob
+import bob.learn.linear
 import numpy
 
 def make_lda(train):
@@ -21,7 +21,7 @@ def make_lda(train):
   Returns the machine
   """
 
-  T = bob.trainer.FisherLDATrainer()
+  T = bob.learn.linear.FisherLDATrainer()
   machine, eig_vals = T.train(train)
   return machine
 
