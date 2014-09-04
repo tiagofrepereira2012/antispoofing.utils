@@ -33,7 +33,8 @@ def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0
 
   # PCA dimensionality reduction of the data
   if pca_reduction:
-    train = [train_real,train_attack]
+    #train = [train_real,train_attack]
+    train=numpy.append(train_real, train_attack, axis=0)
     pcaMachine = pca.make_pca(train, energy, False) # performing PCA
     train_real = pcareduce(pcaMachine, train_real); train_attack = pcareduce(pcaMachine, train_attack)
 
