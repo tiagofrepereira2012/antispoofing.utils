@@ -1,11 +1,11 @@
 language: python
 matrix:
   include:
-  - python: 2.6 TpBgZ72cZz5eDn55KV4/Pnzuk0W2XmE1HAavsJeOfRGnBr1iu/82wTsjRvMtqIs2qlOe37D6qrVXq+kvw0UTclfEHQZYF+tEJ21Ygz13k8QRNSHC/vdOrpcx4O5WlSBT4s1fputGLY2peI4HB6x+buF0QniEwXvuaB1TyrfJnak=
-  - python: 2.7 RBzGR1gwV+we4hVC1SPYnF/644xp42riULKUR629FboRUQr0NZ+nP1fpQGr3MZ1C0zzZt+ayvkWUZRoc8Khl/9sH0FtQT8kBOSbphuhT3m0c6BM/aQZ+qfCjPDG0ygT7DJYOcSNtH2aYPL7R9cerT01Kj9+BMKL8rI4U7lZVCuM=
+  - python: 2.6
+  - python: 2.7
     env:
-    - secure:
-    - secure:
+    - secure: TpBgZ72cZz5eDn55KV4/Pnzuk0W2XmE1HAavsJeOfRGnBr1iu/82wTsjRvMtqIs2qlOe37D6qrVXq+kvw0UTclfEHQZYF+tEJ21Ygz13k8QRNSHC/vdOrpcx4O5WlSBT4s1fputGLY2peI4HB6x+buF0QniEwXvuaB1TyrfJnak=
+    - secure: RBzGR1gwV+we4hVC1SPYnF/644xp42riULKUR629FboRUQr0NZ+nP1fpQGr3MZ1C0zzZt+ayvkWUZRoc8Khl/9sH0FtQT8kBOSbphuhT3m0c6BM/aQZ+qfCjPDG0ygT7DJYOcSNtH2aYPL7R9cerT01Kj9+BMKL8rI4U7lZVCuM=
   - python: 3.2
     env:
     - NUMPYSPEC===1.8.0
