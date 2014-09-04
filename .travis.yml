@@ -4,8 +4,8 @@ matrix:
   - python: 2.6
   - python: 2.7
     env:
-    - secure: AE6SVLz7QMjCyG4EPkmBiviDTZ64Rzer0IaIlR1rgASl5z1PWSGh+iCBQYQFnN9kVakeVFnszEB/bDtLboOAG3tEKmDzyjhn81j8twxFd5Tzr96gnLalExLZwFFZIWpYoz86DrxfhK7e04RdqsqArCmhEIZb7W4vnmMCvK5L27o=
-    - secure: GyEUv+x3iGwuN9qtetWzv71bVkuPvRSN5+eMukAZYt51q6lTxkRD1KsSVqLz7NC5AcdahwZL6Js5puQSSa0ilrJrEnySRpHso3Sk7J8Oy9U6H1UuGK7USQA5LT6eMuyX7Fo5fHXJPKkitOTvAlarHA14tSXZ58zYENgwnAqRC7E=
+    - secure: 
+    - secure: 
   - python: 3.2
     env:
     - NUMPYSPEC===1.8.0
@@ -24,8 +24,8 @@ install:
 - python bootstrap.py
 - ./bin/buildout
 script:
-- ./bin/python -c 'from bob.db.verification.utils import get_config; print(get_config())'
-- ./bin/coverage run --source=bob.db.verification.utils ./bin/nosetests -sv
+- ./bin/python -c 'from antispoofing.utils import get_config; print(get_config())'
+- ./bin/coverage run --source=antispoofing.utils ./bin/nosetests -sv
 - ./bin/sphinx-build -b doctest doc sphinx
 - ./bin/sphinx-build -b html doc sphinx
 after_success:
