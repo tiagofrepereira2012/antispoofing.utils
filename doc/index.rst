@@ -13,10 +13,10 @@
   Add a note
 
 .. warning::
-   Add a reference [LiJain2005]_
+   Add a reference [XxYy2014]_
 
 
-.. [LiJain2005] **Stan Z. Li and Anil K. Jain**, *Handbook of Face Recognition*, Springer, 2005.
+.. [XxYy2014] **Xx and Yy**, *Title*, Springer, 2014.
 
 Documentation
 -------------
