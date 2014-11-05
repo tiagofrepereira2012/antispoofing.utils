@@ -2,15 +2,20 @@
 .. @author: Manuel Guenther <Manuel.Guenther@idiap.ch>
 .. @date:   Tue Aug 26 09:42:18 CEST 2014
 
+.. _antispoofing.utils:
+
 =============================
- Utilities for anti-spoofing
+ Utilities for Anti-Spoofing
 =============================
 
 .. todolist::
 
 
+.. todo::
+   Upload this documentation to Pythonhosted (see :ref:`bob.extension`)
+
 .. note::
-  Add a note
+   Add a note
 
 .. warning::
    Add a reference [XxYy2014]_

@@ -24,7 +24,7 @@ setup(
 
     name='antispoofing.utils',
     version='2.0.0a0',
-    description='Utilitary package for antispoofing countermeasures',
+    description='Utility package for anti-spoofing countermeasures',
     url='http://pypi.python.org/pypi/antispoofing.utils',
     license='GPLv3',
     author='Tiago de Freitas Pereira, Ivana Chingovska',
@@ -59,6 +59,7 @@ setup(
       },
 
     classifiers = [
+      'Framework :: Bob',
       'Development Status :: 4 - Beta',
       'Intended Audience :: Science/Research',
       'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
