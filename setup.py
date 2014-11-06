@@ -18,12 +18,15 @@
 
 from setuptools import setup, find_packages
 
+# Define package version
+version = open("version.txt").read().rstrip()
+
 # The only thing we do in this file is to call the setup() function with all
 # parameters that define our package.
 setup(
 
     name='antispoofing.utils',
-    version='2.0.0a0',
+    version=version,
     description='Utility package for anti-spoofing countermeasures',
     url='http://pypi.python.org/pypi/antispoofing.utils',
     license='GPLv3',
