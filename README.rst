@@ -6,7 +6,7 @@
    :target: http://pythonhosted.org/antispoofing.utils/index.html
 .. image:: http://img.shields.io/badge/docs-latest-orange.png
    :target: https://www.idiap.ch/software/bob/docs/latest/bioidiap/antispoofing.utils/master/index.html
-.. image:: https://travis-ci.org/bioidiap/antispoofing.utils.svg?branch=v2.0.2
+.. image:: https://travis-ci.org/bioidiap/antispoofing.utils.svg?branch=master
    :target: https://travis-ci.org/bioidiap/antispoofing.utils
 .. image:: https://coveralls.io/repos/bioidiap/antispoofing.utils/badge.png
    :target: https://coveralls.io/r/bioidiap/antispoofing.utils
