@@ -6,6 +6,7 @@
 """Support methods and classes for reading face locations from text files."""
 
 import numpy
+import re
 from .BoundingBox import *
 
 def expand_detections(detections, nframes, max_age=-1, faceSizeFilter=0):
@@ -74,7 +75,7 @@ def read_face(filename):
   # to-be-returned dictionary
   retval = {}
   for i, line in enumerate(lines):
-    s = line.split()
+    s = re.split('; | |, ',line) #s = line.split()
     if len(s) < 4:
       raise RuntimeError("Cannot make sense of data in line %d of file '%s': '%s'" % \
           (i, filename, " ".join(line)))
