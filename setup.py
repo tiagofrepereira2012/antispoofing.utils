@@ -32,7 +32,7 @@ setup(
     name='antispoofing.utils',
     version=version,
     description='Utility package for anti-spoofing countermeasures',
-    url='http://pypi.python.org/pypi/antispoofing.utils',
+    url='http://github.com/bioidiap/antispoofing.utils',
     license='GPLv3',
     author='Tiago de Freitas Pereira, Ivana Chingovska',
     author_email='tiagofrepereira@gmail.com, ivana.chingovska@idiap.ch',
