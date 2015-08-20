@@ -98,7 +98,6 @@ def read_face(filename):
 
   return retval
 
-
 def preprocess_detections(filename, nFrames, facesize_filter=0, max_age=-1,):
   """Reads a single face with the face locations getting the best possible
   detections taking into consideration the ages of the last valid detection
@@ -118,14 +117,10 @@ def preprocess_detections(filename, nFrames, facesize_filter=0, max_age=-1,):
     An integer indicating for a how many frames a detected face is valid if no
     detection occurs after such frame. A value of -1 == forever
 
-  db
-    a string for the database. If the MSU-MFSD database is used, you should
-    set this parameter to 'msu'. This is done because the face file containing
-    the face coordinates are not in the same format for this database. 
-
   Returns dictionary containing the frames in which detection occurred and with
   keys corresponding to BoundingBox objects.
   """
+
   locations = read_face(filename)
   locations = expand_detections(locations,nFrames,faceSizeFilter=facesize_filter,max_age=max_age)
 
