@@ -50,6 +50,18 @@ def expand_detections(detections, nframes, max_age=-1, faceSizeFilter=0):
 
 def read_face(filename):
   """Reads a single file containing the face locations.
+  
+  Originally developed for the REPLAY-ATTACK database, where each line of the facefile contains:
+    - the frame number
+    - the first two numbers are the x,y coordinates of the top-left corner
+    - the width of the bounding box
+    - the height of the bounding box
+
+  Meant to work also with the MSU-MSFD database, where the facefile provides the following information:
+    - each line contains 9 numbers
+    - the first one is the number of the frame
+    - the 4 following numbers are the coordinates of the face bounding box: left (x), top (y), right(x), bottom (y)
+    - the 4 last numbers are the coordinates of the eyes.
 
   Parameters:
 
@@ -65,7 +77,6 @@ def read_face(filename):
     * Bounding box height
 
   """
-
   f = open(filename, 'rt') #opens the file for reading
 
   # we read all lines that are not empty
@@ -79,7 +90,11 @@ def read_face(filename):
     if len(s) < 4:
       raise RuntimeError("Cannot make sense of data in line %d of file '%s': '%s'" % \
           (i, filename, " ".join(line)))
-    retval[int(s[0])] = BoundingBox(s[1], s[2], s[3], s[4])
+    # check if we have a file for the MSU database (lines are longer since they have the eyes coordinates...)
+    if len(s) == 9:
+      retval[int(s[0])] = BoundingBox(s[1], s[2], int(s[3]) - int(s[1]), int(s[4]) - int(s[2]))
+    else:
+      retval[int(s[0])] = BoundingBox(s[1], s[2], s[3], s[4])
 
   return retval
 
