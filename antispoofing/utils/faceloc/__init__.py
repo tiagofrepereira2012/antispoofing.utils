@@ -98,7 +98,7 @@ def read_face(filename):
 
   return retval
 
-def preprocess_detections(filename, nFrames, facesize_filter=0, max_age=-1,):
+def preprocess_detections(filename, nFrames, facesize_filter=0, max_age=-1):
   """Reads a single face with the face locations getting the best possible
   detections taking into consideration the ages of the last valid detection
 
