@@ -99,7 +99,7 @@ def read_face(filename):
   return retval
 
 
-def preprocess_detections(filename, nFrames, facesize_filter=0, max_age=-1, db='replay'):
+def preprocess_detections(filename, nFrames, facesize_filter=0, max_age=-1,):
   """Reads a single face with the face locations getting the best possible
   detections taking into consideration the ages of the last valid detection
 
@@ -126,10 +126,6 @@ def preprocess_detections(filename, nFrames, facesize_filter=0, max_age=-1, db='
   Returns dictionary containing the frames in which detection occurred and with
   keys corresponding to BoundingBox objects.
   """
-
-  #if db == 'msu':
-   # locations = read_face_msu(filename)
-  #else:
   locations = read_face(filename)
   locations = expand_detections(locations,nFrames,faceSizeFilter=facesize_filter,max_age=max_age)
 
