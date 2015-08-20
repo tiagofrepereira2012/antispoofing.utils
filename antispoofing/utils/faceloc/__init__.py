@@ -77,7 +77,6 @@ def read_face(filename):
     * Bounding box height
 
   """
-
   f = open(filename, 'rt') #opens the file for reading
 
   # we read all lines that are not empty
@@ -96,46 +95,6 @@ def read_face(filename):
       retval[int(s[0])] = BoundingBox(s[1], s[2], int(s[3]) - int(s[1]), int(s[4]) - int(s[2]))
     else:
       retval[int(s[0])] = BoundingBox(s[1], s[2], s[3], s[4])
-
-  return retval
-
-def read_face_msu(filename):
-  """
-  Reads a single file containing the face locations.
-
-
-  Parameters:
-
-  filename
-    the name of the text file containing the face locations
-
-  Returns: A dictionary containing the frames in which detection occurred and
-  with keys corresponding to BoundingBox objects:
-
-    * Bounding box top-left X coordinate
-    * Bounding box top-left Y coordinate
-    * Bounding box width
-    * Bounding box height
-
-  """
-  f = open(filename, 'rt') #opens the file for reading
-
-  # we read all lines that are not empty
-  lines = [k.strip() for k in f.readlines() if k.strip()]
-
-  # iteratively transform the data in every line and store it on the
-  # to-be-returned dictionary
-  retval = {}
-  for i, line in enumerate(lines):
-    s = re.split('; | |, ',line) #s = line.split()
-    if len(s) < 4:
-      raise RuntimeError("Cannot make sense of data in line %d of file '%s': '%s'" % \
-          (i, filename, " ".join(line)))
-    x_topleft = s[1]
-    y_topleft = s[2]
-    width = int(s[3]) - int(s[1])
-    height = int(s[4]) - int(s[2])
-    retval[int(s[0])] = BoundingBox(x_topleft, y_topleft, width, height)
 
   return retval
 
