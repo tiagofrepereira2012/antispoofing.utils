@@ -46,9 +46,7 @@ setup(
 
     install_requires = install_requires,
 
-    namespace_packages = [
-      'antispoofing',
-      ],
+
 
     entry_points={
       'console_scripts': [
