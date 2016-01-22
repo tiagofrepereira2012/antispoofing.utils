@@ -8,7 +8,7 @@
    :target: https://www.idiap.ch/software/bob/docs/latest/bioidiap/antispoofing.utils/master/index.html
 .. image:: https://travis-ci.org/bioidiap/antispoofing.utils.svg?branch=master
    :target: https://travis-ci.org/bioidiap/antispoofing.utils
-.. image:: https://coveralls.io/repos/bioidiap/antispoofing.utils/badge.png
+.. image:: https://coveralls.io/repos/bioidiap/antispoofing.utils/badge.svg
    :target: https://coveralls.io/r/bioidiap/antispoofing.utils
 .. image:: https://img.shields.io/badge/github-master-0000c0.png
    :target: https://github.com/bioidiap/antispoofing.utils/tree/master
