@@ -9,7 +9,7 @@
 import bob.learn.linear
 import numpy
 
-def make_lda(train):
+def make_lda(train, use_pinv=False):
   """Creates a new linear machine and train it using LDA.
 
   Keyword Parameters:
@@ -21,7 +21,8 @@ def make_lda(train):
   Returns the machine
   """
 
-  T = bob.learn.linear.FisherLDATrainer()
+  print(use_pinv)
+  T = bob.learn.linear.FisherLDATrainer(use_pinv=use_pinv)
   machine, eig_vals = T.train(train)
   return machine
 
