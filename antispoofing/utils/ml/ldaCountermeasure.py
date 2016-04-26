@@ -14,7 +14,7 @@ Implement the train flow to a LDA based countermeasure
 """
 Train the countermeasure
 """
-def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0.99,copy=True):
+def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0.99,copy=True, use_pinv=False):
 
   pcaMachine = None
 
@@ -41,7 +41,7 @@ def train(train_real, train_attack, normalize=False,pca_reduction=False,energy=0
 
   train = [train_real,train_attack]
 
-  ldaMachine = make_lda(train) # training the LDA
+  ldaMachine = make_lda(train,use_pinv=use_pinv) # training the LDA
   ldaMachine.shape = (ldaMachine.shape[0], 1) #only use first component!
 
   #Storing the normaliation factors in Linear machine
